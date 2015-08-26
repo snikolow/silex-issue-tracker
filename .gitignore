@@ -2,3 +2,4 @@ vendor/
 var/log/*
 var/cache/*
 composer.lock
+src/Resources/config/config.php
