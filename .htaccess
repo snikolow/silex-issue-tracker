@@ -1,0 +1,3 @@
+<FilesMatch "\.(htaccess|htpasswd)|composer\.(json|lock)|migrations\.php|LICENSE$">
+    Require all denied
+</FilesMatch>

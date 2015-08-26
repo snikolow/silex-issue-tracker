@@ -1,0 +1,62 @@
+{% extends 'layouts/listTable.twig' %}
+
+{% set boxHeadingTitle = title %}
+
+{% block boxTools %}
+    <a class="btn btn-primary btn-xs" href="{{ path('issues_create', {'identifier': project.identifier}) }}">
+        <i class="fa fa-plus-square"></i>
+        {{ 'buttons.create' | trans }}
+    </a>
+{% endblock %}
+
+{% block tableHead %}
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Subject</th>
+            <th>Tracker</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Assignee</th>
+            <th>Created</th>
+            <th>Updated</th>
+        </tr>
+    </thead>
+{% endblock %}
+
+{% block tableBody %}
+    <tbody class="issue-table">
+        {% if collection is not empty %}
+            {% for object in collection %}
+                <tr class="{{ object.status.className }} {{ object.priority.className }}">
+                    <td>
+                        <a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.id }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.subject }}</a>
+                    </td>
+                    <td>{{ object.tracker.title }}</td>
+                    <td>{{ object.status.title }}</td>
+                    <td>{{ object.priority.title }}</td>
+                    <td>{{ object.assignedTo.name | default(false) }}</td>
+                    <td>{{ timeAgo(object.createdAt) }}</td>
+                    <td>{{ timeAgo(object.updatedAt) }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+        <tr class="danger">
+            <td colspan="8" class="text-center">No results found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+{% endblock %}
+
+{% block tableFooter %}
+    <ul class="pagination pagination-sm no-margin">
+        <li><a href="#">«</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">»</a></li>
+    </ul>
+{% endblock %}

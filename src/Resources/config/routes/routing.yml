@@ -1,0 +1,146 @@
+homepage:
+    route: /
+    handler: App\Controller\HomeController::indexAction
+
+# Auth
+backend_auth:
+    route: /auth
+    handler: App\Controller\SecurityController::authAction
+    
+# Users
+users_list:
+    route: /users/{page}
+    handler: App\Controller\UserController::listAction
+
+users_create:
+    route: /users/create
+    handler: App\Controller\UserController::createAction
+    method: GET|POST
+
+users_edit:
+    route: /users/edit/{id}
+    handler: App\Controller\UserController::updateAction
+    method: GET|POST
+
+users_delete:
+    route: /users/delete/{id}
+    handler: App\Controller\UserController::deleteAction
+
+backend_ajax_users_autocomplete:
+    route: /ajax/users/autocomplete
+    handler: App\Controller\UserController::ajaxAutocompleteAction
+
+# Trackers
+trackers_list:
+    route: /trackers/{page}
+    handler: App\Controller\TrackerController::listAction
+
+trackers_create:
+    route: /trackers/create
+    handler: App\Controller\TrackerController::createAction
+    method: GET|POST
+
+trackers_edit:
+    route: /trackers/edit/{id}
+    handler: App\Controller\TrackerController::updateAction
+    method: GET|POST
+
+trackers_delete:
+    route: /trackers/delete/{id}
+    handler: App\Controller\TrackerController::deleteAction
+
+# Priorities
+priorities_list:
+    route: /priorities/{page}
+    handler: App\Controller\PriorityController::listAction
+
+priorities_create:
+    route: /priorities/create
+    handler: App\Controller\PriorityController::createAction
+    method: GET|POST
+
+priorities_edit:
+    route: /priorities/edit/{id}
+    handler: App\Controller\PriorityController::updateAction
+    method: GET|POST
+
+priorities_delete:
+    route: /priorities/delete/{id}
+    handler: App\Controller\PriorityController::deleteAction
+    
+# Issue statuses
+statuses_list:
+    route: /statuses/{page}
+    handler: App\Controller\IssueStatusController::listAction
+
+statuses_create:
+    route: /statuses/create
+    handler: App\Controller\IssueStatusController::createAction
+    method: GET|POST
+
+statuses_edit:
+    route: /statuses/edit/{id}
+    handler: App\Controller\IssueStatusController::updateAction
+    method: GET|POST
+
+statuses_delete:
+    route: /statuses/delete/{id}
+    handler: App\Controller\IssueStatusController::deleteAction
+
+# Projects
+projects_list:
+    route: /projects/{page}
+    handler: App\Controller\ProjectController::listAction
+
+projects_create:
+    route: /projects/create
+    handler: App\Controller\ProjectController::createAction
+    method: GET|POST
+
+projects_edit:
+    route: /projects/edit/{id}
+    handler: App\Controller\ProjectController::updateAction
+    method: GET|POST
+
+projects_delete:
+    route: /projects/delete/{id}
+    handler: App\Controller\ProjectController::deleteAction
+
+# Issues
+issues_create:
+    route: /projects/{identifier}/issues/create
+    handler: App\Controller\IssueController::createAction
+    method: GET|POST
+    
+issues_list:
+    route: /projects/{identifier}/issues/{page}
+    handler: App\Controller\IssueController::listAction
+    
+issues_edit:
+    route: /issues/{id}
+    handler: App\Controller\IssueController::updateAction
+    method: GET|POST
+    
+issues_ajax_update:
+    route: /ajax/issues/update
+    handler: App\Controller\IssueController::ajaxUpdateAction
+    method: POST
+    
+# Roles
+roles_list:
+    route: /roles/{page}
+    handler: App\Controller\RoleController::listAction
+
+roles_create:
+    route: /roles/create
+    handler: App\Controller\RoleController::createAction
+    method: GET|POST
+
+roles_edit:
+    route: /roles/edit/{id}
+    handler: App\Controller\RoleController::updateAction
+    method: GET|POST
+
+roles_delete:
+    route: /roles/delete/{id}
+    handler: App\Controller\RoleController::deleteAction

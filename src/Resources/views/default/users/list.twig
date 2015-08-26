@@ -1,0 +1,63 @@
+{% extends 'layouts/listTable.twig' %}
+
+{% set boxHeadingTitle = title %}
+
+{% block boxTools %}
+    <a class="btn btn-primary btn-xs" href="{{ path('users_create') }}">
+        <i class="fa fa-plus-square"></i>
+        {{ 'buttons.create' | trans }}
+    </a>
+{% endblock %}
+
+{% block tableHead %}
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Enabled</th>
+            <th>Administrator</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+{% endblock %}
+
+{% block tableBody %}
+    <tbody>
+        {% if collection is not empty %}
+            {% for object in collection %}
+            <tr>
+                <td>{{ object.id }}</td>
+                <td>{{ object.email }}</td>
+                <td>{{ object.name }}</td>
+                <td>{{ yesNo(object.enabled) }}</td>
+                <td>{{ yesNo(object.isAdmin) }}</td>
+                <td>
+                    <a href="{{ path('users_edit', { 'id': object.id }) }}" class="btn btn-warning btn-xs">
+                        <i class="fa fa-pencil"></i>
+                        {{ 'buttons.edit' | trans }}
+                    </a>
+                    <a href="{{ path('users_delete', { 'id': object.id }) }}" class="btn btn-danger btn-xs">
+                        <i class="fa fa-trash-o"></i>
+                        {{ 'buttons.delete' | trans }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        <tr class="danger">
+            <td colspan="2" class="text-center">No results found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+{% endblock %}
+
+{% block tableFooter %}
+    <ul class="pagination pagination-sm no-margin">
+        <li><a href="#">«</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">»</a></li>
+    </ul>
+{% endblock %}

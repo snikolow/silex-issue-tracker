@@ -1,0 +1,13 @@
+{% if collection is not empty %}
+<ol class="breadcrumb">
+    {% for item in collection %}
+        {% if item.route is not empty %}
+        <li>
+            <a href="{{ path(item.route, item.params) }}">{{ item.title }}</a>
+        </li>
+        {% else %}
+        <li class="active">{{ item.title }}</li>
+        {% endif %}
+    {% endfor %}
+</ol>
+{% endif %}

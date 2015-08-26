@@ -1,0 +1,10 @@
+{% set collection = app.session.flashbag.all() %}
+
+{% if collection is not empty %}
+    {% for type, messages in collection %}
+        <div class="alert alert-{{ type }} alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ messages | join('<br>') | raw }}
+        </div>
+    {% endfor %}
+{% endif %}

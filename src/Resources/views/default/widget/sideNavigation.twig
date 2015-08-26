@@ -1,0 +1,34 @@
+<aside class="left-side sidebar-offcanvas">
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+        {% if collection is not empty %}
+            {% for item in collection %}
+                {% if item.childs is not defined or item.childs is empty %}
+                <li{% if app.request.get('_route') == item.route %} class="active"{% endif %}>
+                    <a href="{{ path(item.route) }}" class="active">
+                        <i class="{{ item.icon | default('fa fa-folder') }}"></i> <span>{{ item.title | trans }}</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="treeview">
+                    <a href="javascript:void(0);">
+                        <i class="{{ item.icon | default('fa fa-folder') }}"></i> <span>{{ item.title | trans }}</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for child in item.childs %}
+                        <li>
+                            <a href="{{ path(child.route) }}">
+                                <i class="fa fa-angle-double-right"></i>
+                                <span>{{ child.title | trans }}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </ul>
+    </section>
+</aside>

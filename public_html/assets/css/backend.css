@@ -1,0 +1,104 @@
+/** Override **/
+.right-side > .content-header > .breadcrumb {
+    background: transparent;
+    margin-top: 0px;
+    margin-bottom: 0;
+    font-size: 12px;
+    padding: 7px 5px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    position: relative !important;
+    float: left !important;
+}
+
+.invoice { width: 100% !important; }
+
+/** </> **/
+
+a.btn-success,
+a.btn-primary,
+a.btn-danger,
+a.btn-warning,
+a.btn-info {
+    color: #FFF !important;
+}
+
+.alert {
+    margin: 0px;
+    padding-left: 10px;
+}
+
+.wyshtml5-area {
+    height: 200px !important;
+    padding: 10px !important;
+}
+
+.control-group > label,
+.checkbox > label {
+    padding-left: 0px;
+}
+
+.issue-table a {
+    color: #333;
+    border-bottom: 1px dashed #333;
+}
+.issue-table a:hover {
+    border-bottom:1px solid #333;
+}
+
+.hidden-issue-form { display: none; }
+.issue-modal > .modal-dialog {
+    width:40% !important;
+}
+.datepicker { z-index: 10000 !important; }
+@media screen and (min-width: 768px) {
+    .modal-dialog {
+      width: 700px; /* New width for default modal */
+    }
+    .modal-sm {
+      width: 350px; /* New width for small modal */
+    }
+}
+@media screen and (min-width: 992px) {
+    .modal-lg {
+      width: 950px; /* New width for large modal */
+    }
+}
+
+.status-new.priority-immediate { background: #ff6655; }
+.status-new.priority-urgent { background: #ff7766; }
+.status-new.priority-high { background: #ff8877; }
+.status-new.priority-normal { background: #ff9988; }
+.status-new.priority-low { background: #ffaa99; }
+
+.status-progress.priority-immediate { background: #8c8cfe; }
+.status-progress.priority-urgent { background: #9c9cfe; }
+.status-progress.priority-high { background: #acacfe; }
+.status-progress.priority-normal { background: #bcbcfe; }
+.status-progress.priority-low { background: #ccccfe; }
+
+.status-resolved.priority-immediate { background: #008833; }
+.status-resolved.priority-urgent { background: #00aa55; }
+.status-resolved.priority-high { background: #00cc77; }
+.status-resolved.priority-normal { background: #00ee99; }
+.status-resolved.priority-low { background: #99ffbb; }
+
+.status-feedback.priority-immediate { background: #ff9911; }
+.status-feedback.priority-urgent { background: #ffaa33; }
+.status-feedback.priority-high { background: #ffbb44; }
+.status-feedback.priority-normal { background: #ffcc55; }
+.status-feedback.priority-low { background: #ffdd66; }
+
+.status-closed.priority-immediate { background: #777777; }
+.status-closed.priority-urgent { background: #888888; }
+.status-closed.priority-high { background: #999999; }
+.status-closed.priority-normal { background: #aaaaaa; }
+.status-closed.priority-low { background: #bbbbbb; }
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }

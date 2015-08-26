@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html{% if htmlClass is defined %} class="{{ htmlClass }}"{% endif %}>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{ title | default('Sign In') }}</title>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/theme/lte/css/theme.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/backend.css') }}"/>
+        <script src="{{ asset('assets/js/jquery/jquery.1.11.min.js') }}"></script>
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body{% if bodyClass is defined %} class="{{ bodyClass }} skin-black fixed"{% else %} class="skin-black fixed"{% endif %}>
+        {% block content %}{% endblock %}
+        <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/theme/lte/js/theme/app.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

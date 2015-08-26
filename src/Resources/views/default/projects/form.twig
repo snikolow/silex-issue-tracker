@@ -1,0 +1,89 @@
+{% extends 'layouts/main.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/autocomplete/autocomplete.js') }}"></script>
+    <script src="{{ asset('assets/js/app/projects.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        {{ form_start(form) }}
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs pull-right">
+                <li>
+                    <a href="#members" data-toggle="tab"><i class="fa fa-user"></i> Members</a>
+                </li>
+                <li class="active">
+                    <a href="#details" data-toggle="tab"><i class="fa fa-pencil"></i> Details</a>
+                </li>
+                <li class="pull-left header">{{ title }}</li>
+            </ul>
+            <div class="tab-content">
+                <div id="details" class="tab-pane active">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.identifier) }}
+                    {{ form_row(form.isPublic) }}
+                    {{ form_row(form.trackers) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.submit) }}
+                </div>
+                <div id="members" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Members</div>
+                                <table class="table table-bordered" data-role="members-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Roles</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Administrator</td>
+                                            <td>Developer<br>Manager</td>
+                                            <td>
+                                                <a href="javascript:;" data-role="remove-member">Remove</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="hidden" data-role="row-template">
+                                            <td></td>
+                                            <td></td>
+                                            <td><a href="javascript:;" data-role="remove-member">Remove</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add new member</div>
+                                <div class="panel-body">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="users-autocomplete" 
+                                               class="form-control input-sm" 
+                                               placeholder="Start typing a name..." 
+                                               autocomplete="off" 
+                                               data-role="autocomplete"
+                                        />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="button" data-role="add-member">Add member!</button>
+                                        </span>
+                                    </div>
+                                    {{ form_row(form.roles) }}
+                                    <span class="hidden" data-role="autocompleteUrl" data-value="{{ path('backend_ajax_users_autocomplete') }}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

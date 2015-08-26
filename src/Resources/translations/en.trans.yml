@@ -1,0 +1,52 @@
+title:
+    signIn: Sign In
+    forgotPassword: Forgotten password
+    page:
+        dashboard: Dashboard
+        trackers:
+            list: Trackers
+            create: Add tracker
+            update: Update tracker
+        users:
+            list: Users
+            create: Add user
+            update: Update user
+        priorities:
+            list: Priorities
+            create: Add priority
+            update: Update priority
+        projects:
+            list: Projects
+            create: Add project
+            update: Update project
+        statuses:
+            list: Issue statuses
+            create: Add status
+            update: Update status
+        issues:
+            list: Issues
+        roles:
+            list: Roles and permissions
+            create: Add role
+            update: Update role
+inputs:
+    signIn: Log In
+    logout: Log Out
+buttons:
+    create: Add new
+    edit: Edit
+    delete: Delete
+    issues: Issues
+placeholders:
+    email: Enter e-mail address
+    password: Enter password
+nav:
+    dashboard: Dashboard
+    projects: Projects
+    users: Users
+    priorities: Priorities
+    trackers: Trackers
+    statuses: Issue statuses
+    roles: Roles and permissions
+warnings:
+    noResults: No results found

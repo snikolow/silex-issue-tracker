@@ -1,0 +1,57 @@
+{% extends 'layouts/listTable.twig' %}
+
+{% set boxHeadingTitle = title %}
+
+{% block boxTools %}
+    <a class="btn btn-primary btn-xs" href="{{ path('trackers_create') }}">
+        <i class="fa fa-plus-square"></i>
+        {{ 'buttons.create' | trans }}
+    </a>
+{% endblock %}
+
+{% block tableHead %}
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+{% endblock %}
+
+{% block tableBody %}
+    <tbody>
+        {% if collection is not empty %}
+            {% for object in collection %}
+            <tr>
+                <td>{{ object.id }}</td>
+                <td>{{ object.title }}</td>
+                <td>
+                    <a href="{{ path('trackers_edit', { 'id': object.id }) }}" class="btn btn-warning btn-xs">
+                        <i class="fa fa-pencil"></i>
+                        {{ 'buttons.edit' | trans }}
+                    </a>
+                    <a href="{{ path('trackers_delete', { 'id': object.id }) }}" class="btn btn-danger btn-xs">
+                        <i class="fa fa-trash-o"></i>
+                        {{ 'buttons.delete' | trans }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        <tr class="danger">
+            <td colspan="3" class="text-center">No results found.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+{% endblock %}
+
+{% block tableFooter %}
+    <ul class="pagination pagination-sm no-margin">
+        <li><a href="#">«</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">»</a></li>
+    </ul>
+{% endblock %}
