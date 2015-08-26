@@ -2,6 +2,7 @@
     "require": {
         "silex/silex": "~1.1",
         "symfony/console": "~2.3",
+        "symfony/config": "~2.3",
         "symfony/filesystem": "~2.3",
         "symfony/form": "~2.3",
         "symfony/locale": "~2.3",
