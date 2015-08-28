@@ -18,7 +18,7 @@ class ProjectController extends BaseController {
                 ->add('Projects');
         
         $collection = $this->getRepository('Project')
-                ->getCollection()
+                ->getCollection($this->getUser())
                 ->getQuery()
                 ->getResult();
         

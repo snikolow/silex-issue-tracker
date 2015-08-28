@@ -145,6 +145,28 @@ class Project {
         $this->createdBy = $createdBy;
     }
 
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getTrackers() {
+        return $this->trackers;
+    }
 
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getMembers() {
+        return $this->members;
+    }
+
+    public function setTrackers($trackers) {
+        $this->trackers = $trackers;
+    }
+
+    public function setMembers($members) {
+        $this->members = $members;
+    }
     
 }

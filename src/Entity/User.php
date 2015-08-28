@@ -47,6 +47,13 @@ class User implements UserInterface {
      */
     public $isAdmin = false;
     
+    /**
+     * This is unmapped property and we store either
+     * ROLE_ADMIN or ROLE_USER based on $isAdmin property,
+     * since it's necessary because we implement UserInterface
+     * 
+     * @var array
+     */
     public $roles = array();
     
     public function __construct() {

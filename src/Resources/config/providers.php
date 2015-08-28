@@ -112,4 +112,11 @@ if( isset($app) ) {
             'ROLE_ADMIN'        => array('ROLE_USER')
         )
     ));
+                
+    // Add a custom security voter to support testing user attributes.
+    $app['security.voters'] = $app->extend('security.voters', function($voters) use ($app) {
+        $voters[] = new \App\Component\Security\Voter\ProjectVoter();
+        
+        return $voters;
+    });
 }

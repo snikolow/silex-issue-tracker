@@ -10,7 +10,10 @@ if( isset($app) ) {
                 'class' => 'App\\Widget\\NavigationWidget'
             ),
             'sideNavigation' => array(
-                'class' => 'App\\Widget\\SideNavigationWidget'
+                'class' => 'App\\Widget\\SideNavigationWidget',
+                'calls' => array(
+                    'setAuthorizationChecker' => $app['security.authorization_checker']
+                )
             ),
             'breadcrumbs' => array(
                 'class' => 'App\\Widget\\BreadcrumbWidget',

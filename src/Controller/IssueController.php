@@ -20,6 +20,10 @@ class IssueController extends BaseController {
             $this->application->abort(404, 'Project not found!');
         }
         
+        if( ! $this->isGranted('view', $project) ) {
+            $this->application->abort(403, 'You are not a member of this project!');
+        }
+        
         $this->get('breadcrumbs')
                 ->add('Home', 'homepage')
                 ->add('Projects', 'projects_list')
