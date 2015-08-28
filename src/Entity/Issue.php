@@ -52,6 +52,7 @@ class Issue {
     /**
      * @var \App\Entity\Project
      * @ManyToOne(targetEntity="App\Entity\Project")
+     * @JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     public $project;
     
