@@ -42,10 +42,13 @@ class UserController extends BaseController {
             ->add('Users', 'users_list')
             ->add('Manage user');
         
-        $form = $this->get('form.factory')->create(new UserType(), new User());
+        $form = $this->get('form.factory')->create(new UserType(), new User(), array('create' => true));
 
         if( $form->handleRequest($request)->isValid() ) {
             $entity = $form->getData();
+            $plainPassword = $entity->getPassword();
+            
+            $entity->setPassword( $this->encodePassword($entity, $plainPassword) );
 
             $this->persistAndFlush($entity);
 
