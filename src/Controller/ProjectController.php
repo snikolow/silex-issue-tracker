@@ -17,15 +17,13 @@ class ProjectController extends BaseController {
                 ->add('Home', 'homepage')
                 ->add('Projects');
         
-        $collection = $this->getRepository('Project')
-                ->getCollection($this->getUser())
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('Project')->getCollection($this->getUser());
+        $paginator = $this->get('paginator')->paginate($query, $page, 10);
         
         return $this->render('projects/list.twig',
                 array(
                     'title' => $this->trans('title.page.projects.list'),
-                    'collection' => $collection
+                    'collection' => $paginator
                 )
         );
     }

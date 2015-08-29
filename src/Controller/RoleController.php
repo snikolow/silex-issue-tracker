@@ -8,24 +8,32 @@ use App\Entity\Role;
 
 class RoleController extends BaseController {
     
-    public function listAction() {
+    /**
+     * List roles
+     * 
+     * @param int $page
+     */
+    public function listAction($page = 1) {
         $this->get('breadcrumbs')
                 ->add('Home', 'homepage')
                 ->add('Roles and permissions');
         
-        $collection = $this->getRepository('Role')
-                ->getCollection()
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('Role')->getCollection();
+        $paginator = $this->get('paginator')->paginate($query, $page, 10);
         
         return $this->render('roles/list.twig',
                 array(
                     'title' => $this->trans('title.page.roles.list'),
-                    'collection' => $collection
+                    'collection' => $paginator
                 )
         );
     }
     
+    /**
+     * Create role
+     * 
+     * @param Request $request
+     */
     public function createAction(Request $request) {
         $this->get('breadcrumbs')
                 ->add('Home', 'homepage')
@@ -52,6 +60,12 @@ class RoleController extends BaseController {
         );
     }
     
+    /**
+     * Update existing role
+     * 
+     * @param Request $request
+     * @param int $id
+     */
     public function updateAction(Request $request, $id) {
         $this->get('breadcrumbs')
                 ->add('Home', 'homepage')
@@ -82,6 +96,11 @@ class RoleController extends BaseController {
         );
     }
     
+    /**
+     * Delete role
+     * 
+     * @param int $id
+     */
     public function deleteAction($id) {
         
     }

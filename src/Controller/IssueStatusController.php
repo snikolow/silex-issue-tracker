@@ -17,14 +17,12 @@ class IssueStatusController extends BaseController {
             ->add('Home', 'homepage')
             ->add('Issue statuses');
         
-        $collection = $this->getRepository('IssueStatus')
-                ->getCollection()
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('IssueStatus')->getCollection();
+        $paginator = $this->get('paginator')->paginate($query, $page, 10);
 
         return $this->render('statuses/list.twig',
             array(
-                'collection' => $collection,
+                'collection' => $paginator,
                 'title' => $this->trans('title.page.statuses.list')
             )
         );

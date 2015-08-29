@@ -1,0 +1,27 @@
+{% if paginator.getTotalPages > 1 %}
+    {% set params = app.request.get('_route_params') %}
+    <div class="pull-left">
+        {{ 'pagination.label' | trans({ '%page%': paginator.getCurrentPage, '%total%': paginator.getTotalPages }) }}
+    </div>
+    <div class="pull-right">
+        <ul class="pagination pagination-sm no-margin">
+            <li{% if paginator.hasPrevioisPage is sameas(false) %} class="disabled"{% endif %}>
+                <a href="{{ path(app.request.get('_route'), params | merge({'page': 1})) }}">{{ 'pagination.first' | trans | raw }}</a>
+            </li>
+            <li{% if paginator.hasPrevioisPage is sameas(false) %} class="disabled"{% endif %}>
+                <a href="{{ path(app.request.get('_route'), params | merge({'page': paginator.getPreviousPage})) }}">{{ 'pagination.prev' | trans | raw }}</a>
+            </li>
+            {% for i in paginator.generatePagesRange %}
+                <li{% if paginator.isPageActive(i) %} class="active"{% endif %}>
+                    <a href="{{ path(app.request.get('_route'), params | merge({'page': i})) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+            <li{% if paginator.hasNextPage is sameas(false) %} class="disabled"{% endif %}>
+                <a href="{{ path(app.request.get('_route'), params | merge({'page': paginator.getNextPage})) }}">{{ 'pagination.next' | trans | raw }}</a>
+            </li>
+            <li{% if paginator.hasNextPage is sameas(false) %} class="disabled"{% endif %}>
+                <a href="{{ path(app.request.get('_route'), params | merge({'page': paginator.getTotalPages})) }}">{{ 'pagination.last' | trans | raw }}</a>
+            </li>
+        </ul>
+    </div>
+{% endif %}

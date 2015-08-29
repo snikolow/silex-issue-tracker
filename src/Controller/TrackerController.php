@@ -18,14 +18,12 @@ class TrackerController extends BaseController {
             ->add('Home', 'homepage')
             ->add('Trackers');
         
-        $collection = $this->getRepository('Tracker')
-                ->getCollection()
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('Tracker')->getCollection();
+        $paginator = $this->get('paginator')->paginate($query, $page, 10);
 
         return $this->render('trackers/list.twig',
             array(
-                'collection' => $collection,
+                'collection' => $paginator,
                 'title' => $this->trans('title.page.trackers.list')
             )
         );

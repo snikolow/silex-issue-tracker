@@ -23,6 +23,12 @@ if( isset($app) ) {
             ),
             'flashes' => array(
                 'class' => 'App\\Widget\\FlashWidget'
+            ),
+            'pagination' => array(
+                'class' => 'App\\Widget\\PaginationWidget',
+                'calls' => array(
+                    'setRequest' => $app['request_stack']
+                )
             )
         );
     });

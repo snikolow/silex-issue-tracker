@@ -18,14 +18,12 @@ class UserController extends BaseController {
             ->add('Home', 'homepage')
             ->add('Users');
         
-        $collection = $this->getRepository('User')
-                ->getCollection()
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('User')->getCollection();
+        $paginator = $this->get('paginator')->paginate($query, $page, 15);
 
         return $this->render('users/list.twig',
             array(
-                'collection' => $collection,
+                'collection' => $paginator,
                 'title' => $this->trans('title.page.users.list')
             )
         );

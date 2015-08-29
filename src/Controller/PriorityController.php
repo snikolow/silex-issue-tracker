@@ -17,14 +17,12 @@ class PriorityController extends BaseController {
             ->add('Home', 'homepage')
             ->add('Priorities');
         
-        $collection = $this->getRepository('Priority')
-                ->getCollection()
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('Priority')->getCollection();
+        $paginator = $this->get('paginator')->paginate($query, $page, 10);
 
         return $this->render('priorities/list.twig',
             array(
-                'collection' => $collection,
+                'collection' => $paginator,
                 'title' => $this->trans('title.page.priorities.list')
             )
         );

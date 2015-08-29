@@ -30,14 +30,13 @@ class IssueController extends BaseController {
                 ->add($project->getTitle())
                 ->add('Issues');
         
-        $collection = $this->getRepository('Issue')->getCollectionByProject($project)
-                ->getQuery()
-                ->getResult();
+        $query = $this->getRepository('Issue')->getCollectionByProject($project);
+        $paginator = $this->get('paginator')->paginate($query, $page, 25);
         
         return $this->render('issues/list.twig',
                 array(
                     'title' => $this->trans('title.page.issues.list'),
-                    'collection' => $collection,
+                    'collection' => $paginator,
                     'project' => $project
                 )
         );

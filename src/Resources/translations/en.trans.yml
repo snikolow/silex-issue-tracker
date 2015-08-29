@@ -50,3 +50,9 @@ nav:
     roles: Roles and permissions
 warnings:
     noResults: No results found
+pagination:
+    label: Displaying page %page% of %total%
+    first: First
+    prev: "&lt;"
+    next: "&gt;"
+    last: Last
