@@ -12,42 +12,40 @@
 {% block tableHead %}
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Subject</th>
-            <th>Tracker</th>
-            <th>Status</th>
-            <th>Priority</th>
-            <th>Assignee</th>
-            <th>Created</th>
-            <th>Updated</th>
+            <th>{{ 'list.id' | trans }}</th>
+            <th>{{ 'list.subject' | trans }}</th>
+            <th>{{ 'list.tracker' | trans }}</th>
+            <th>{{ 'list.status' | trans }}</th>
+            <th>{{ 'list.priority' | trans }}</th>
+            <th>{{ 'list.assignee' | trans }}</th>
+            <th>{{ 'list.createdAt' | trans }}</th>
+            <th>{{ 'list.updatedAt' | trans }}</th>
         </tr>
     </thead>
 {% endblock %}
 
 {% block tableBody %}
     <tbody class="issue-table">
-        {% if collection is not empty %}
-            {% for object in collection %}
-                <tr class="{{ object.status.className }} {{ object.priority.className }}">
-                    <td>
-                        <a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.id }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.subject }}</a>
-                    </td>
-                    <td>{{ object.tracker.title }}</td>
-                    <td>{{ object.status.title }}</td>
-                    <td>{{ object.priority.title }}</td>
-                    <td>{{ object.assignedTo.name | default(false) }}</td>
-                    <td>{{ timeAgo(object.createdAt) }}</td>
-                    <td>{{ timeAgo(object.updatedAt) }}</td>
-                </tr>
-            {% endfor %}
+        {% for object in collection %}
+            <tr class="{{ object.status.className }} {{ object.priority.className }}">
+                <td>
+                    <a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.id }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.subject }}</a>
+                </td>
+                <td>{{ object.tracker.title }}</td>
+                <td>{{ object.status.title }}</td>
+                <td>{{ object.priority.title }}</td>
+                <td>{{ object.assignedTo.name | default(false) }}</td>
+                <td>{{ timeAgo(object.createdAt) }}</td>
+                <td>{{ timeAgo(object.updatedAt) }}</td>
+            </tr>
         {% else %}
-        <tr class="danger">
-            <td colspan="8" class="text-center">No results found.</td>
-        </tr>
-        {% endif %}
+            <tr class="danger">
+                <td colspan="8" class="text-center">{{ 'warnings.noResults' | trans }}</td>
+            </tr>
+        {% endfor %}
     </tbody>
 {% endblock %}
 

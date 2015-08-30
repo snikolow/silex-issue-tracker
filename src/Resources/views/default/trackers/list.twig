@@ -12,37 +12,35 @@
 {% block tableHead %}
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Actions</th>
+            <th>{{ 'list.id' | trans }}</th>
+            <th>{{ 'list.title' | trans }}</th>
+            <th>{{ 'list.actions' | trans }}</th>
         </tr>
     </thead>
 {% endblock %}
 
 {% block tableBody %}
     <tbody>
-        {% if collection is not empty %}
-            {% for object in collection %}
-            <tr>
-                <td>{{ object.id }}</td>
-                <td>{{ object.title }}</td>
-                <td>
-                    <a href="{{ path('trackers_edit', { 'id': object.id }) }}" class="btn btn-warning btn-xs">
-                        <i class="fa fa-pencil"></i>
-                        {{ 'buttons.edit' | trans }}
-                    </a>
-                    <a href="{{ path('trackers_delete', { 'id': object.id }) }}" class="btn btn-danger btn-xs">
-                        <i class="fa fa-trash-o"></i>
-                        {{ 'buttons.delete' | trans }}
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        {% else %}
-        <tr class="danger">
-            <td colspan="3" class="text-center">No results found.</td>
+        {% for object in collection %}
+        <tr>
+            <td>{{ object.id }}</td>
+            <td>{{ object.title }}</td>
+            <td>
+                <a href="{{ path('trackers_edit', { 'id': object.id }) }}" class="btn btn-warning btn-xs">
+                    <i class="fa fa-pencil"></i>
+                    {{ 'buttons.edit' | trans }}
+                </a>
+                <a href="{{ path('trackers_delete', { 'id': object.id }) }}" class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash-o"></i>
+                    {{ 'buttons.delete' | trans }}
+                </a>
+            </td>
         </tr>
-        {% endif %}
+        {% else %}
+            <tr class="danger">
+                <td colspan="3" class="text-center">{{ 'warnings.noResults' | trans }}</td>
+            </tr>
+        {% endfor %}
     </tbody>
 {% endblock %}
 

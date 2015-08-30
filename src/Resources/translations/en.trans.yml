@@ -2,7 +2,11 @@ title:
     signIn: Sign In
     forgotPassword: Forgotten password
     page:
-        dashboard: Dashboard
+        dashboard:
+            index: Dashboard
+            issues:
+                created: Issues reported by me
+                assigned: Issues assigned to me
         trackers:
             list: Trackers
             create: Add tracker
@@ -56,3 +60,22 @@ pagination:
     prev: "&lt;"
     next: "&gt;"
     last: Last
+list:
+    id: Id
+    title: Title
+    isPublic: Public
+    createdAt: Created
+    updatedAt: Updated
+    createdBy: Created by
+    trackers: Trackers
+    email: E-mail
+    name: Name
+    enabled: Enabled
+    isAdmin: Administrator
+    subject: Subject
+    tracker: Tracker
+    status: Status
+    priority: Priority
+    assignee: Assignee
+    project: Project
+    actions: Actions

@@ -6,7 +6,7 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">
-                        {{ 'title.page.dashboard' | trans }}
+                        {{ 'title.page.dashboard.index' | trans }}
                     </h3>
                 </div>
                 <div class="box-body">
@@ -14,7 +14,7 @@
                         <div class="col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Issues assigned to me
+                                    {{ 'title.page.dashboard.issues.assigned' | trans }}
                                     <div class="box-tools pull-right">
                                         <div class="label label-warning">Last 20 shown</div>
                                     </div>
@@ -22,10 +22,10 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Project</th>
-                                            <th>Subject</th>
-                                            <th>Tracker</th>
+                                            <th>{{ 'list.id' | trans }}</th>
+                                            <th>{{ 'list.project' | trans }}</th>
+                                            <th>{{ 'list.subject' | trans }}</th>
+                                            <th>{{ 'list.tracker' | trans }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Issues reported by me
+                                    {{ 'title.page.dashboard.issues.created' | trans }}
                                     <div class="box-tools pull-right">
                                         <div class="label label-warning">Last 20 shown</div>
                                     </div>
@@ -58,11 +58,11 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Project</th>
-                                            <th>Subject</th>
-                                            <th>Tracker</th>
-                                            <th>Added</th>
+                                            <th>{{ 'list.id' | trans }}</th>
+                                            <th>{{ 'list.project' | trans }}</th>
+                                            <th>{{ 'list.subject' | trans }}</th>
+                                            <th>{{ 'list.tracker' | trans }}</th>
+                                            <th>{{ 'list.createdAt' | trans }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
