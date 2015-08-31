@@ -39,7 +39,6 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     /* @var $twig \Twig_Environment */
     $appExtension = new AppExtension(
             $app['request'],
-            $app['datetime'],
             $app['widgets']
     );
 

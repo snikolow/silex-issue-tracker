@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Service;
+namespace App\Helper\DateTime;
 
-class DateTimeHelper {
+class TimeAgo {
     
-    function getTimeAgo($timestamp) {
+    /**
+     * 
+     * @param int $timestamp
+     * @return string
+     */
+    public static function formatDate($timestamp) {
         $currentTimestamp = (new \DateTime())->getTimestamp();
         $estimateTime = $currentTimestamp - $timestamp;
 
@@ -34,5 +39,5 @@ class DateTimeHelper {
             }
         }
     }
-
+    
 }

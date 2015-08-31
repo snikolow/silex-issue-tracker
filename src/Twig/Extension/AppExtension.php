@@ -3,7 +3,7 @@
 namespace App\Twig\Extension;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Service\DateTimeHelper;
+use App\Helper\DateTime\TimeAgo;
 
 class AppExtension extends \Twig_Extension {
 
@@ -12,9 +12,6 @@ class AppExtension extends \Twig_Extension {
 
     /** @var \Twig_Environment */
     private $twig;
-    
-    /** @var DateTimeHelper */
-    private $dateTimeHelper;
 
     /** @var array */
     private $widgets = array();
@@ -28,9 +25,8 @@ class AppExtension extends \Twig_Extension {
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param array
      */
-    public function __construct(Request $request, DateTimeHelper $helper, array $widgets = array()) {
+    public function __construct(Request $request, array $widgets = array()) {
         $this->request = $request;
-        $this->dateTimeHelper = $helper;
         $this->widgets = $widgets;
     }
 
@@ -145,7 +141,7 @@ class AppExtension extends \Twig_Extension {
         
         $timestamp = $date->getTimestamp();
         
-        return $this->dateTimeHelper->getTimeAgo($timestamp);
+        return TimeAgo::formatDate($timestamp);
     }
 
     /**
