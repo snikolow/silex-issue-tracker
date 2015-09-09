@@ -1,0 +1,21 @@
+priorities_list:
+    path: /{page}
+    defaults: { _controller: App\Controller\PriorityController::listAction, page: 1 }
+    requirements:
+        page: \d+
+        
+priorities_create:
+    path: /create
+    defaults: { _controller: App\Controller\PriorityController::createAction }
+    
+priorities_edit:
+    path: /edit/{id}
+    defaults: { _controller: App\Controller\PriorityController::updateAction }
+    requirements:
+        id: \d+
+        
+priorities_delete:
+    path: /delete/{id}
+    defaults: { _controller: App\Controller\PriorityController::deleteAction }
+    requirements:
+        id: \d+

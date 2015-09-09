@@ -1,119 +1,111 @@
 {% extends 'layouts/main.twig' %}
 
 {% block javascripts %}
-    <script typr="text/javascript">
-        $('[data-role="ajax-submit"]')
-                .on('click', function(event) {
-                    event.preventDefault();
-                    var url = $('span[data-role="ajaxUpdateUrl"]').attr('data-value');
-            
-                    $.ajax({
-                        type:       'POST',
-                        url:        url,
-                        data:       $('#issue-form').serialize(),
-                        success:    function(response) {
-                            if( typeof response.isValid !== 'undefined' && response.isValid === true ) {
-                                $('#issue-form').submit();
-                            }
-                            else if( typeof response.isValid !== 'undefined' && response.isValid === false ) {
-                                var errorsCollection = response.errors;
-                                var $errorsContainer = $('div[data-role="errors-container"]');
-                                $errorsContainer
-                                        .removeClass('hidden')
-                                        .text('')
-                                        .show();
-                                
-                                for(var field in errorsCollection) {
-                                    console.log(field);
-                                    
-                                    for(var error in errorsCollection[field]) {
-                                        console.log(error);
-                                    }
-                                }
-                            }
-                        },
-                        error:      function(response) {
-                            console.log('Error');
-                            console.log(response);
-                        }
-                    });
-                });
-    </script>
+    <script src="{{ asset('assets/js/app/issues.js') }}"></script>
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <section class="content invoice">
-                <div class="row">
-                    <div class="col-xs-1 pull-right text-right">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        <i class="fa fa-globe"></i> {{ object.subject }}
+                    </h3>
+                    <div class="box-tools pull-right">
                         <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#myModal">
                             <i class="fa fa-pencil"></i>
-                            Update
+                            {{ 'buttons.update' | trans }}
                         </button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h2 class="page-header">
-                            <i class="fa fa-globe"></i> {{ object.subject }}
-                            <small class="pull-right">
-                                <strong>Added by</strong> {{ object.createdBy.name }} {{ timeAgo(object.createdAt) }} |
-                                <strong>Updated</strong> {{ timeAgo(object.updatedAt) }}
-                            </small>
-                        </h2>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-6 invoice-col">
+                            <dl class="dl-horizontal">
+                                <dt>{{ 'list.createdBy' | trans }}:</dt>
+                                <dd>{{ object.createdBy.name }}</dd>
+                                <dt>{{ 'list.status' | trans }}:</dt>
+                                <dd>{{ object.status.title }}</dd>
+                                <dt>{{ 'list.priority' | trans }}:</dt>
+                                <dd>{{ object.priority.title }}</dd>
+                                <dt>{{ 'list.assignee' | trans }}</dt>
+                                <dd>{{ object.assignedTo.name | default('-') }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-6 invoice-col">
+                            <dl class="dl-horizontal">
+                                <dt>{{ 'list.createdAt' | trans }}:</dt>
+                                <dd>{{ object.createdAt | date('d F Y') }} ( {{ timeAgo(object.createdAt) }} )</dd>
+                                <dt>{{ 'list.updatedAt' | trans }}:</dt>
+                                <dd>{{ object.updatedAt | date('d F Y') }} ( {{ timeAgo(object.updatedAt) }} )</dd>
+                                <dt>{{ 'list.dueDate' | trans }}:</dt>
+                                <dd>
+                                    {% if object.dueDate is not empty %}
+                                        {{ object.dueDate | date('d F Y') }}
+                                    {% endif %}
+                                </dd>
+                                <dt>{{ 'list.doneRatio' | trans }}:</dt>
+                                <dd>{{ object.doneRatio }} (%)</dd>
+                            </dl>
+                        </div>
                     </div>
-                </div>
-                <div class="row invoice-info">
-                    <div class="col-sm-6 invoice-col">
-                        <dl class="dl-horizontal">
-                            <dt>Status:</dt>
-                            <dd>{{ object.status.title }}</dd>
-                            <dt>Priority:</dt>
-                            <dd>{{ object.priority.title }}</dd>
-                            <dt>Asignee</dt>
-                            <dd>{{ object.assignedTo.name | default('-') }}</dd>
-                        </dl>
-                    </div>
-                    <div class="col-sm-6 invoice-col">
-                        <dl class="dl-horizontal">
-                            <dt>Created:</dt>
-                            <dd>{{ object.createdAt | date('d F Y') }}</dd>
-                            <dt>Due date:</dt>
-                            <dd>
-                                {% if object.dueDate is not empty %}
-                                    {{ object.dueDate | date('d F Y') }}
-                                {% endif %}
-                            </dd>
-                            <dt>Done ratio:</dt>
-                            <dd>{{ object.doneRatio }} (%)</dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="row issue-content">
-                    <div class="col-xs-12 table-responsive">
-                        <blockquote>
-                            {{ object.description | raw }}
-                        </blockquote>
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">Update issue details.</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="hidden alert alert-danger" data-role="errors-container"></div>
-                                        {{ form(form) }}
+                    <div class="row issue-content">
+                        <div class="col-xs-12 table-responsive">
+                            <blockquote>
+                                {{ object.description | raw }}
+                            </blockquote>
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">{{ 'title.page.issues.update' | trans }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="hidden alert alert-danger" data-role="errors-container"></div>
+                                            {{ form(form) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+            <div class="box box-warning">
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'title.page.issues.comments' | trans }}</h3>
+                </div>
+                <div class="box-body">
+                    {% if comments is defined and comments | length > 0 %}
+                    <ul class="timeline">
+                        {% for comment in comments %}
+                        <li>
+                            <i class="fa fa-comment bg-orange"></i>
+                            <div class="timeline-item">
+                                <span class="time">
+                                    <i class="fa fa-clock-o"></i> {{ comment.createdAt | date('d F Y H:i') }}
+                                </span>
+                                <h3 class="timeline-header">{{ comment.member.name }}</h3>
+                                <div class="timeline-body">
+                                    {{ comment.content | raw }}
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <div class="alert alert-danger">{{ 'warnings.noResults' | trans }}</div>
+                    {% endif %}
+                </div>
+                <div class="box-footer">
+                    <h4>{{ 'title.page.issues.addComment' | trans }}</h4>
+                    {{ form(commentForm) }}
+                </div>
+            </div>
         </div>
     </div>
     <span class="hidden" data-role="ajaxUpdateUrl" data-value="{{ path('issues_ajax_update') }}"></span>

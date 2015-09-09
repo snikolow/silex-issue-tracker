@@ -42,6 +42,12 @@ if( isset($app) ) {
     $app->register(new Provider\HttpCacheServiceProvider(), array(
         'http_cache.cache_dir'  => $app['project.config']['cache_path']
     ));
+    
+    // Register Swift Mailer
+    $app->register(new Provider\SwiftmailerServiceProvider(), array(
+        'swiftmailer.use_spool' => false,
+        'swiftmailer.options' => isset($app['project.config']['mailer']) ? $app['project.config']['mailer'] : array()
+    ));
 
     // Register translator provider
     $app->register(new Provider\TranslationServiceProvider(), array(
@@ -116,6 +122,7 @@ if( isset($app) ) {
     // Add a custom security voter to support testing user attributes.
     $app['security.voters'] = $app->extend('security.voters', function($voters) use ($app) {
         $voters[] = new \App\Component\Security\Voter\ProjectVoter();
+        $voters[] = new \App\Component\Security\Voter\IssueVoter();
         
         return $voters;
     });

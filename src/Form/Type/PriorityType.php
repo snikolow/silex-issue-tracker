@@ -11,6 +11,10 @@ class PriorityType extends AbstractType {
     public function getName() {
         return 'priority_type';
     }
+    
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefault('data_class', 'App\Entity\Priority');
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', 'text');

@@ -12,6 +12,10 @@ class TrackerType extends AbstractType {
     public function getName() {
         return 'trackers_type';
     }
+    
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefault('data_class', 'App\Entity\Tracker');
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', 'text',

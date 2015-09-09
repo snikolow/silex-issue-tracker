@@ -14,7 +14,12 @@ class ProjectType extends AbstractType {
     }
     
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefault('edit', false);
+        $resolver->setDefaults(
+                array(
+                    'data_class' => 'App\Entity\Project',
+                    'edit' => false,
+                )
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {

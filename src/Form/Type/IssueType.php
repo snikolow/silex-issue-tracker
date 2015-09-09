@@ -5,7 +5,6 @@ namespace App\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class IssueType extends AbstractType {
 
@@ -14,12 +13,15 @@ class IssueType extends AbstractType {
     }
     
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'editMode' => false,
-            'attr' => array(
-                'id' => 'issue-form'
-            )
-        ));
+        $resolver->setDefaults(
+                array(
+                    'data_class' => 'App\Entity\Issue',
+                    'editMode' => false,
+                    'attr' => array(
+                        'id' => 'issue-form'
+                    )
+                )
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {

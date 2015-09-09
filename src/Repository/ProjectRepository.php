@@ -7,6 +7,11 @@ use App\Entity\User;
 
 class ProjectRepository extends EntityRepository {
     
+    /**
+     * Base query used when listing results.
+     * 
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getCollection(User $user) {
         $qb = $this->createQueryBuilder('p')
                 ->addSelect('u')

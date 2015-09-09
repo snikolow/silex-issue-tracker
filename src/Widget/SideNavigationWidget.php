@@ -3,11 +3,16 @@
 namespace App\Widget;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class SideNavigationWidget extends AbstractWidget {
     
     /** @var AuthorizationCheckerInterface */
     private $authChecker = null;
+    
+    /** @var Request */
+    private $request = null;
     
     /**
      * 
@@ -15,6 +20,14 @@ class SideNavigationWidget extends AbstractWidget {
      */
     public function setAuthorizationChecker(AuthorizationCheckerInterface $checker) {
         $this->authChecker = $checker;
+    }
+    
+    /**
+     * 
+     * @param RequestStack $requestStack
+     */
+    public function setRequest(RequestStack $requestStack) {
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function getContent() {

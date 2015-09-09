@@ -5,7 +5,9 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\Type\IssueType;
+use App\Form\Type\CommentType;
 use App\Entity\Issue;
+use App\Entity\Comment;
 
 class IssueController extends BaseController {
     
@@ -53,6 +55,10 @@ class IssueController extends BaseController {
             $this->application->abort(404, 'Project not found!');
         }
         
+        if( ! $this->isGranted('view', $project) ) {
+            $this->application->abort(403, 'You are not a member of this project!');
+        }
+        
         $this->get('breadcrumbs')
                 ->add('Home', 'homepage')
                 ->add('Projects', 'projects_list')
@@ -97,6 +103,14 @@ class IssueController extends BaseController {
         
         $project = $issue->getProject();
         
+        if( ! $this->isGranted('view', $project) ) {
+            $this->application->abort(403, 'You are not a member of this project!');
+        }
+        
+        if( ! $this->isGranted('view', $issue) ) {
+            $this->application->abort(403, 'You are not allowed to view this issue!');
+        }
+        
         $this->get('breadcrumbs')
                 ->add('Home', 'homepage')
                 ->add('Projects', 'projects_list')
@@ -104,13 +118,16 @@ class IssueController extends BaseController {
                 ->add('Issues', 'issues_list', array('identifier' => $project->getIdentifier()))
                 ->add($issue->getSubject());
         
+        // Create the form for updating this issue
         $form = $this->get('form.factory')->create(new IssueType(), $issue, 
                 array(
                     'action' => $this->url('issues_edit', array('id' => $id))
                 )
         );
+        $form->handleRequest($request);
         
-        if( $form->handleRequest($request)->isValid() ) {
+        // Check if our update form is submitted, and persist the changes.
+        if( $form->isSubmitted() && $form->isValid() ) {
             $entity = $form->getData();
             
             $this->persistAndFlush($entity);
@@ -118,11 +135,31 @@ class IssueController extends BaseController {
             $this->addFlash('success', 'Issue updated successfuly!');
         }
         
+        // reate the form for commeting on a issue
+        $commentForm = $this->get('form.factory')->create(new CommentType(), new Comment());
+        $commentForm->handleRequest($request);
+        
+        // Check if our comment form is submitted, and add the comment.
+        if( $commentForm->isSubmitted() && $commentForm->isValid() ) {
+            $comment = $commentForm->getData();
+            $comment->setIssue($issue);
+            $comment->setMember($this->getUser());
+            
+            $this->persistAndFlush($comment);
+            
+            $this->addFlash('success', 'Comment added successfuly!');
+        }
+        
+        // Get all comments related to this issue.
+        $comments = $this->getRepository('Comment')->getIssueComments($issue);
+        
         return $this->render('issues/details.twig',
                 array(
                     'title' => '',
                     'object' => $issue,
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'commentForm' => $commentForm->createView(),
+                    'comments' => $comments
                 )
         );
     }
@@ -136,7 +173,6 @@ class IssueController extends BaseController {
         }
         else {
             $response['isValid'] = false;
-            
             $response['errors'] = $this->getFormErrors($form);
         }
         

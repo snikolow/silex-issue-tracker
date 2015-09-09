@@ -1,0 +1,21 @@
+statuses_list:
+    path: /{page}
+    defaults: { _controller: App\Controller\IssueStatusController::listAction, page: 1 }
+    requirements:
+        page: \d+
+        
+statuses_create:
+    path: /create
+    defaults: { _controller: App\Controller\IssueStatusController::createAction }
+    
+statuses_edit:
+    path: /edit/{id}
+    defaults: { _controller: App\Controller\IssueStatusController::updateAction }
+    requirements:
+        id: \d+
+        
+statuses_delete:
+    path: /delete/{id}
+    defaults: { _controller: App\Controller\IssueStatusController::deleteAction }
+    requirements:
+        id: \d+

@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
 use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class ProjectVoter extends AbstractVoter {
+class IssueVoter extends AbstractVoter {
 
     const VIEW = 'view';
     const EDIT = 'edit';
@@ -16,18 +16,18 @@ class ProjectVoter extends AbstractVoter {
     }
 
     protected function getSupportedClasses() {
-        return array('App\Entity\Project');
+        return array('App\Entity\Issue');
     }
 
     /**
      * 
      * @param string $attribute
-     * @param \App\Entity\Project $project
+     * @param \App\Entity\Issue $issue
      * @param \App\Entity\User $user
      * @return boolean
      * @throws \LogicException
      */
-    protected function isGranted($attribute, $project, $user = null) {
+    protected function isGranted($attribute, $issue, $user = null) {
         // make sure there is a user object (i.e. that the user is logged in)
         if( ! $user instanceof UserInterface ) {
             return false;
@@ -45,11 +45,14 @@ class ProjectVoter extends AbstractVoter {
             return true;
         }
         
+        $project = $issue->getProject();
+        
         switch ($attribute) {
             case self::VIEW:
                 if( $project->getMembers()->contains($user) ) {
                     return true;
                 }
+                
                 break;
             case self::EDIT:
                 

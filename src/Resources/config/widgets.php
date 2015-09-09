@@ -12,7 +12,8 @@ if( isset($app) ) {
             'sideNavigation' => array(
                 'class' => 'App\\Widget\\SideNavigationWidget',
                 'calls' => array(
-                    'setAuthorizationChecker' => $app['security.authorization_checker']
+                    'setAuthorizationChecker' => $app['security.authorization_checker'],
+                    'setRequest' => $app['request_stack']
                 )
             ),
             'breadcrumbs' => array(

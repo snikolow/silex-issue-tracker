@@ -8,6 +8,12 @@ use App\Entity\User;
 
 class IssueRepository extends EntityRepository {
     
+    /**
+     * Get all issues for specific project.
+     * 
+     * @param Project $project
+     * @return array
+     */
     public function getCollectionByProject(Project $project) {
         return $this->createQueryBuilder('i')
                 ->addSelect('p', 't', 'pr', 's', 'a')
@@ -22,6 +28,12 @@ class IssueRepository extends EntityRepository {
         ;
     }
     
+    /**
+     * Get the last 20 issues created by specific user.
+     * 
+     * @param User $user
+     * @return array
+     */
     public function getCreatedIssues(User $user) {
         return $this->createQueryBuilder('i')
                 ->addSelect('u', 'p')
@@ -38,7 +50,12 @@ class IssueRepository extends EntityRepository {
         ;
     }
     
-    
+    /**
+     * Get the last 20 issues that are assigned to specific user.
+     * 
+     * @param User $user
+     * @return array
+     */
     public function getAssignedIssues(User $user) {
         return $this->createQueryBuilder('i')
                 ->addSelect('u', 'p')

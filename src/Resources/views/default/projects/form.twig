@@ -12,10 +12,10 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
                 <li>
-                    <a href="#members" data-toggle="tab"><i class="fa fa-user"></i> Members</a>
+                    <a href="#members" data-toggle="tab"><i class="fa fa-user"></i> {{ 'tabs.members' | trans }}</a>
                 </li>
                 <li class="active">
-                    <a href="#details" data-toggle="tab"><i class="fa fa-pencil"></i> Details</a>
+                    <a href="#details" data-toggle="tab"><i class="fa fa-pencil"></i> {{ 'tabs.details' | trans }}</a>
                 </li>
                 <li class="pull-left header">{{ title }}</li>
             </ul>
@@ -32,27 +32,31 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel panel-default">
-                                <div class="panel-heading">Members</div>
+                                <div class="panel-heading">{{ 'tabs.members' | trans }}</div>
                                 <table class="table table-bordered" data-role="members-table">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Roles</th>
-                                            <th>Actions</th>
+                                            <th>{{ 'list.name' | trans }}</th>
+                                            <th>{{ 'list.roles' | trans }}</th>
+                                            <th>{{ 'list.actions' | trans }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Administrator</td>
-                                            <td>Developer<br>Manager</td>
-                                            <td>
-                                                <a href="javascript:;" data-role="remove-member">Remove</a>
-                                            </td>
-                                        </tr>
+                                        {% for member in project.members %}
+                                            <tr data-member="{{ member.name }}" data-member-id="{{ member.id }}">
+                                                <td>{{ member.name }}</td>
+                                                <td></td>
+                                                <td><a href="javascript:;" data-role="remove-member">{{ 'buttons.remove' | trans }}</a></td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="text-center danger">{{ 'warnings.noResults' | trans }}</td>
+                                            </tr>
+                                        {% endfor %}
                                         <tr class="hidden" data-role="row-template">
                                             <td></td>
                                             <td></td>
-                                            <td><a href="javascript:;" data-role="remove-member">Remove</a></td>
+                                            <td><a href="javascript:;" data-role="remove-member">{{ 'buttons.remove' | trans }}</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -60,7 +64,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="panel panel-default">
-                                <div class="panel-heading">Add new member</div>
+                                <div class="panel-heading">{{ 'title.page.projects.addMember' | trans }}</div>
                                 <div class="panel-body">
                                     <div class="input-group input-group-sm">
                                         <input type="text" name="users-autocomplete" 
@@ -70,11 +74,15 @@
                                                data-role="autocomplete"
                                         />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-success" type="button" data-role="add-member">Add member!</button>
+                                            <button class="btn btn-success" type="button" data-role="add-member">{{ 'buttons.addMember' | trans }}</button>
                                         </span>
                                     </div>
+                                    <input type="hidden" data-role="member" value=""/>
+                                    <input type="hidden" data-role="memberId" value=""/>
                                     {{ form_row(form.roles) }}
-                                    <span class="hidden" data-role="autocompleteUrl" data-value="{{ path('backend_ajax_users_autocomplete') }}"></span>
+                                    <span class="hidden" data-role="projectId" data-value="{{ project.id }}"></span>
+                                    <span class="hidden" data-role="autocompleteUrl" data-value="{{ path('ajax_users_autocomplete') }}"></span>
+                                    <span class="hidden" data-role="addMemberUrl" data-value="{{ path('ajax_project_addmember') }}"></span>
                                 </div>
                             </div>
                         </div>

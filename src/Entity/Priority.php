@@ -28,34 +28,64 @@ class Priority {
      */
     public $className;
     
+    /**
+     * 
+     * @return int
+     */
     public function getId() {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getTitle() {
         return $this->title;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getClassName() {
         return $this->className;
     }
 
+    /**
+     * 
+     * @param int $id
+     */
     public function setId($id) {
         $this->id = $id;
     }
 
+    /**
+     * 
+     * @param string $title
+     */
     public function setTitle($title) {
         $this->title = $title;
     }
 
+    /**
+     * 
+     * @param string $className
+     */
     public function setClassName($className) {
         $this->className = $className;
     }
 
+    /**
+     * 
+     * @param ClassMetadata $metadata
+     */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('title', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('title', new Assert\Length(array('min' => 3)));
+        $metadata->addPropertyConstraints('title', array(
+            new Assert\NotBlank(),
+            new Assert\Length(array('min' => 3))
+        ));
         
         $metadata->addPropertyConstraint('className', new Assert\NotBlank());
     }

@@ -70,6 +70,7 @@ class Project {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->trackers  = new ArrayCollection();
+        $this->members   = new ArrayCollection();
     }
     
     /**
@@ -81,66 +82,130 @@ class Project {
         }
     }
     
+    /**
+     * 
+     * @return int
+     */
     public function getId() {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getTitle() {
         return $this->title;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getDescription() {
         return $this->description;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getIdentifier() {
         return $this->identifier;
     }
 
+    /**
+     * 
+     * @return bool
+     */
     public function getIsPublic() {
         return $this->isPublic;
     }
 
+    /**
+     * 
+     * @return \DateTime
+     */
     public function getCreatedAt() {
         return $this->createdAt;
     }
 
+    /**
+     * 
+     * @return \DateTime
+     */
     public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
+    /**
+     * 
+     * @return \App\Entity\User
+     */
     public function getCreatedBy() {
         return $this->createdBy;
     }
 
+    /**
+     * 
+     * @param int $id
+     */
     public function setId($id) {
         $this->id = $id;
     }
 
+    /**
+     * 
+     * @param string $title
+     */
     public function setTitle($title) {
         $this->title = $title;
     }
 
+    /**
+     * 
+     * @param string $description
+     */
     public function setDescription($description) {
         $this->description = $description;
     }
 
+    /**
+     * 
+     * @param string $identifier
+     */
     public function setIdentifier($identifier) {
         $this->identifier = $identifier;
     }
 
+    /**
+     * 
+     * @param bool $isPublic
+     */
     public function setIsPublic($isPublic) {
         $this->isPublic = $isPublic;
     }
 
+    /**
+     * 
+     * @param \DateTime $createdAt
+     */
     public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
     }
 
+    /**
+     * 
+     * @param \DateTime $updatedAt
+     */
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * 
+     * @param \App\Entity\User $createdBy
+     */
     public function setCreatedBy(\App\Entity\User $createdBy) {
         $this->createdBy = $createdBy;
     }
@@ -161,12 +226,40 @@ class Project {
         return $this->members;
     }
 
+    /**
+     * 
+     * @param array $trackers
+     */
     public function setTrackers($trackers) {
         $this->trackers = $trackers;
     }
 
+    /**
+     * 
+     * @param array $members
+     */
     public function setMembers($members) {
         $this->members = $members;
+    }
+    
+    /**
+     * 
+     * @param \App\Entity\User $user
+     */
+    public function addMember(\App\Entity\User $user = null) {
+        if( $user && ! $this->getMembers()->contains($user) ) {
+            $this->getMembers()->add($user);
+        }
+    }
+    
+    /**
+     * 
+     * @param \App\Entity\User $user
+     */
+    public function removeMember(\App\Entity\User $user) {
+        if( $this->getMembers()->contains($user) ) {
+            $this->getMembers()->removeElement($user);
+        }
     }
     
 }

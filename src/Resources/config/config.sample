@@ -15,6 +15,27 @@ if( isset($app) ) {
                 'pass'  => '',
                 'name'  => '',
                 'charset' => 'utf8'
+            ),
+            'mailer' => array(
+                /**
+                 * Optional. Valid options are - gmail, yahoo.
+                 * If omitted, the default mailer would be used,
+                 * and providing a value for "host" option would be
+                 * mandatory.
+                 */
+                'adapter' => 'gmail',
+                // Optional if using "gmail" or "yahoo" adapter.
+                'host'  => null,
+                // Mandatory option
+                'username'  => null,
+                // Mandatory option
+                'password'  => null,
+                // Optional. Valid values are tls, ssl, or null (indicating no encryption).
+                'encryption'=> null,
+                // Optional if using "gmail" or "yahoo" adapter.
+                'port'      => null,
+                // Optional. Valid values are plain, login, cram-md5, or null.
+                'auth_mode' => null
             )
         );
     });

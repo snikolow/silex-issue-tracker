@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\Type\ProjectType;
 use App\Entity\Project;
 
@@ -91,7 +92,8 @@ class ProjectController extends BaseController {
         return $this->render('projects/form.twig',
                 array(
                     'title' => $this->trans('title.page.projects.update'),
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'project' => $project
                 )
         );
     }
@@ -108,6 +110,46 @@ class ProjectController extends BaseController {
         $this->addFlash('success', 'Project deleted successfuly!');
         
         return $this->redirectToRoute('projects_list');
+    }
+    
+    public function ajaxAddMemberAction(Request $request) {
+        $response = array();
+        
+        /* @var $project \App\Entity\Project */
+        $project = $this->getRepository('Project')->find(intval($request->get('id')));
+        
+        if( $project instanceof Project ) {
+            $memberId = intval($request->get('memberId'));
+            $rolesIds = array_map('intval', $request->get('rolesIds'));
+
+            if( $memberId && count($rolesIds) ) {
+                $user = $this->getRepository('User')->find($memberId);
+                $project->addMember($user);
+                
+                /**
+                 * @TODO: A new set of entities that links needs to
+                 * be added here, so that the selected member with the 
+                 * roles that we checked.
+                 */
+                
+                $this->getManager()->persist($project);
+                $response = array(
+                    'success' => true,
+                    'member' => $user->getName(),
+                    'memberId' => $user->getId()
+                );
+            }
+            else {
+                $response['message'] = 'Invalid member or roles!';
+            }
+            
+            $this->getManager()->flush();
+        }
+        else {
+            $response['message'] = 'Project not found!';
+        }
+        
+        return new JsonResponse($response);
     }
     
 }

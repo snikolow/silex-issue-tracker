@@ -13,7 +13,12 @@ class UserType extends AbstractType {
     }
     
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefault('create', false);
+        $resolver->setDefaults(
+                array(
+                    'data_class' => 'App\Entity\User',
+                    'create' => false
+                )
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
