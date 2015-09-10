@@ -17,11 +17,13 @@ class Comment {
     
     /**
      * @ManyToOne(targetEntity="App\Entity\Issue")
+     * @JoinColumn(name="issue_id", referencedColumnName="id", onDelete="CASCADE")
      */
     public $issue;
     
     /**
      * @ManyToOne(targetEntity="App\Entity\User")
+     * @JoinColumn(name="member_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     public $member;
     

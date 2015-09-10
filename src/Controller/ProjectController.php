@@ -57,7 +57,8 @@ class ProjectController extends BaseController {
         return $this->render('projects/form.twig',
                 array(
                     'title' => $this->trans('title.page.projects.create'),
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'project' => null
                 )
         );
     }

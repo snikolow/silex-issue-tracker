@@ -89,7 +89,7 @@
                                 <span class="time">
                                     <i class="fa fa-clock-o"></i> {{ comment.createdAt | date('d F Y H:i') }}
                                 </span>
-                                <h3 class="timeline-header">{{ comment.member.name }}</h3>
+                                <h3 class="timeline-header">{{ comment.member is not empty ? comment.member.name : 'Anonymous' }}</h3>
                                 <div class="timeline-body">
                                     {{ comment.content | raw }}
                                 </div>

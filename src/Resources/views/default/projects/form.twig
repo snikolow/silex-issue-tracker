@@ -11,9 +11,11 @@
         {{ form_start(form) }}
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs pull-right">
+                {% if project is not empty %}
                 <li>
                     <a href="#members" data-toggle="tab"><i class="fa fa-user"></i> {{ 'tabs.members' | trans }}</a>
                 </li>
+                {% endif %}
                 <li class="active">
                     <a href="#details" data-toggle="tab"><i class="fa fa-pencil"></i> {{ 'tabs.details' | trans }}</a>
                 </li>
@@ -23,12 +25,14 @@
                 <div id="details" class="tab-pane active">
                     {{ form_row(form.title) }}
                     {{ form_row(form.identifier) }}
+                    {{ form_row(form.category) }}
                     {{ form_row(form.isPublic) }}
                     {{ form_row(form.trackers) }}
                     {{ form_row(form.description) }}
                     {{ form_row(form.submit) }}
                 </div>
                 <div id="members" class="tab-pane">
+                    {% if project is not empty %}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel panel-default">
@@ -87,6 +91,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

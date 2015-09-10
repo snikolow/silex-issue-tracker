@@ -36,6 +36,10 @@ title:
             list: Roles and permissions
             create: Add role
             update: Update role
+        categories:
+            list: Categories
+            create: Add category
+            update: Update category
 inputs:
     signIn: Log In
     logout: Log Out
@@ -60,6 +64,7 @@ nav:
     trackers: Trackers
     statuses: Issue statuses
     roles: Roles and permissions
+    categories: Categories
 warnings:
     noResults: No results found
 tabs:
@@ -93,4 +98,4 @@ list:
     dueDate: Due date
     doneRatio: Done
     roles: Roles
-    
+    category: Category

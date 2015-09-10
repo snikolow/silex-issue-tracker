@@ -75,6 +75,7 @@ class SideNavigationWidget extends AbstractWidget {
             array('title' => 'nav.dashboard', 'icon' => 'fa fa-dashboard', 'route' => 'homepage'),
             array('title' => 'nav.projects', 'icon' => 'fa fa-edit', 'route' => 'projects_list'),
             array('title' => 'nav.users', 'icon' => 'fa fa-user', 'route' => 'users_list', 'roles' => array('ROLE_ADMIN')),
+            array('title' => 'nav.categories', 'icon' => 'fa fa-book', 'route' => 'categories_list', 'roles' => array('ROLE_ADMIN')),
             array('title' => 'nav.priorities', 'icon' => 'fa fa-exclamation-triangle', 'route' => 'priorities_list', 'roles' => array('ROLE_ADMIN')),
             array('title' => 'nav.statuses', 'icon' => 'fa fa-list', 'route' => 'statuses_list', 'roles' => array('ROLE_ADMIN')),
             array('title' => 'nav.trackers', 'route' => 'trackers_list', 'roles' => array('ROLE_ADMIN')),

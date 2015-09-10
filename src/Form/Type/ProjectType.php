@@ -31,6 +31,14 @@ class ProjectType extends AbstractType {
             )
         );
         $builder->add('identifier', 'text', array('required' => false, 'disabled' => $options['edit']));
+        $builder->add('category', 'entity',
+                array(
+                    'class' => 'App\Entity\Category',
+                    'property' => 'title',
+                    'required' => false,
+                    'empty_value' => '-- Please select --'
+                )
+        );
         $builder->add('isPublic', 'checkbox',
             array(
                 'label' => 'Make project public',
@@ -56,16 +64,18 @@ class ProjectType extends AbstractType {
                 )
             )
         );
-        $builder->add('roles', 'entity',
-                array(
-                    'mapped' => false,
-                    'class' => 'App\Entity\Role',
-                    'property' => 'title',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'attr' => array('data-role' => 'roles')
-                )
-        );
+        if( $options['edit'] === true ) {
+            $builder->add('roles', 'entity',
+                    array(
+                        'mapped' => false,
+                        'class' => 'App\Entity\Role',
+                        'property' => 'title',
+                        'multiple' => true,
+                        'expanded' => true,
+                        'attr' => array('data-role' => 'roles')
+                    )
+            );
+        }
         $builder->add('submit', 'submit',
             array(
                 'attr' => array(

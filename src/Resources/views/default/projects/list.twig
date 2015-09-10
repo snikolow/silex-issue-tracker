@@ -14,6 +14,7 @@
         <tr>
             <th>{{ 'list.id' | trans }}</th>
             <th>{{ 'list.title' | trans }}</th>
+            <th>{{ 'list.category' | trans }}</th>
             <th>{{ 'list.isPublic' | trans }}</th>
             <th>{{ 'list.createdAt' | trans }}</th>
             <th>{{ 'list.updatedAt' | trans }}</th>
@@ -30,6 +31,7 @@
         <tr>
             <td>{{ object.id }}</td>
             <td>{{ object.title }}</td>
+            <td>{{ object.category is not null ? object.category.title : '-' }}</td>
             <td>{{ yesNo(object.isPublic) }}</td>
             <td>{{ object.createdAt | date('d F Y') }}</td>
             <td>{{ object.updatedAt | date('d F Y') }}</td>

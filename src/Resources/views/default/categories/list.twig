@@ -1,0 +1,49 @@
+{% extends 'layouts/listTable.twig' %}
+
+{% set boxHeadingTitle = title %}
+
+{% block boxTools %}
+    <a class="btn btn-primary btn-xs" href="{{ path('categories_create') }}">
+        <i class="fa fa-plus-square"></i>
+        {{ 'buttons.create' | trans }}
+    </a>
+{% endblock %}
+
+{% block tableHead %}
+    <thead>
+        <tr>
+            <th>{{ 'list.id' | trans }}</th>
+            <th>{{ 'list.title' | trans }}</th>
+            <th>{{ 'list.actions' | trans }}</th>
+        </tr>
+    </thead>
+{% endblock %}
+
+{% block tableBody %}
+    <tbody>
+        {% for object in collection %}
+        <tr>
+            <td>{{ object.id }}</td>
+            <td>{{ object.title }}</td>
+            <td>
+                <a href="{{ path('categories_edit', { 'id': object.id }) }}" class="btn btn-warning btn-xs">
+                    <i class="fa fa-pencil"></i>
+                    {{ 'buttons.edit' | trans }}
+                </a>
+                <a href="{{ path('categories_delete', { 'id': object.id }) }}" class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash-o"></i>
+                    {{ 'buttons.delete' | trans }}
+                </a>
+            </td>
+        </tr>
+        {% else %}
+            <tr class="danger">
+                <td colspan="3" class="text-center">{{ 'warnings.noResults' | trans }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block tableFooter %}
+    {{ widget('pagination', { 'paginator': collection }) }}
+{% endblock %}

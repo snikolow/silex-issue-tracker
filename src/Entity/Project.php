@@ -66,6 +66,12 @@ class Project {
      */
     public $members;
     
+    /**
+     * @ManyToOne(targetEntity="App\Entity\Category")
+     * @JoinColumn(name="category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    public $category;
+    
     public function __construct() {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
@@ -145,7 +151,14 @@ class Project {
     public function getCreatedBy() {
         return $this->createdBy;
     }
-
+    
+    /**
+     * @return \App\Entity\Category
+     */
+    public function getCategory() {
+        return $this->category;
+    }
+    
     /**
      * 
      * @param int $id
@@ -242,6 +255,15 @@ class Project {
         $this->members = $members;
     }
     
+    /**
+     * 
+     * @param \App\Entity\Category
+     */
+    public function setCategory(\App\Entity\Category $category = null) {
+        $this->category = $category;
+    }
+
+        
     /**
      * 
      * @param \App\Entity\User $user
