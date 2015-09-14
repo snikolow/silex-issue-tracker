@@ -1,4 +1,4 @@
-<aside class="left-side sidebar-offcanvas">
+<aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
         {% if collection is not empty %}
@@ -17,9 +17,10 @@
                     </a>
                     <ul class="treeview-menu">
                         {% for child in item.childs %}
+                        {% set params = child.params is defined ? child.params : [] %}
                         <li>
-                            <a href="{{ path(child.route) }}">
-                                <i class="fa fa-angle-double-right"></i>
+                            <a href="{{ path(child.route, params) }}">
+                                <i class="fa fa-circle-o-notch"></i>
                                 <span>{{ child.title | trans }}</span>
                             </a>
                         </li>

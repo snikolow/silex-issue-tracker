@@ -32,27 +32,31 @@ class IssueType extends AbstractType {
                     'property' => 'name',
                     'label' => 'Assignee',
                     'empty_value' => 'None',
-                    'required' => false
+                    'required' => false,
+                    'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('tracker', 'entity',
                 array(
                     'class' => 'App\Entity\Tracker',
                     'property' => 'title',
-                    'label' => 'Tracker'
+                    'label' => 'Tracker',
+                    'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('status', 'entity',
                 array(
                     'class' => 'App\Entity\IssueStatus',
-                    'property' => 'title'
+                    'property' => 'title',
+                    'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('priority', 'entity',
                 array(
                     'class' => 'App\Entity\Priority',
                     'property' => 'title',
-                    'label' => 'Priority'
+                    'label' => 'Priority',
+                    'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('dueDate', 'date',
@@ -77,7 +81,8 @@ class IssueType extends AbstractType {
                                 return sprintf('%d (%%)', $item);
                             },
                             range(0, 100, 10)
-                    )
+                    ),
+                    'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('description', 'textarea',

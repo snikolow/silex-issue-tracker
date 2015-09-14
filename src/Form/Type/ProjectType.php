@@ -36,7 +36,8 @@ class ProjectType extends AbstractType {
                     'class' => 'App\Entity\Category',
                     'property' => 'title',
                     'required' => false,
-                    'empty_value' => '-- Please select --'
+                    'empty_value' => '-- Please select --',
+                    'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('isPublic', 'checkbox',

@@ -48,9 +48,13 @@ a.btn-info {
 }
 
 .hidden-issue-form { display: none; }
-.issue-modal > .modal-dialog {
-    width:40% !important;
+.issue-content .modal-dialog {
+    width:50% !important;
 }
+.issue-content span.select2 {
+    width: 100% !important;
+}
+
 .datepicker { z-index: 10000 !important; }
 @media screen and (min-width: 768px) {
     .modal-dialog {

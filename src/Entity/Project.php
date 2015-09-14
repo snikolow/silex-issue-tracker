@@ -63,6 +63,7 @@ class Project {
     
     /**
      * @ManyToMany(targetEntity="App\Entity\User")
+     * @JoinTable(name="project_members")
      */
     public $members;
     
@@ -263,6 +264,14 @@ class Project {
         $this->category = $category;
     }
 
+    /**
+     * 
+     * @param \App\Entity\User $user
+     * @return bool
+     */
+    public function isAlreadyMember(\App\Entity\User $user) {
+        return (bool) $this->getMembers()->contains($user);
+    }
         
     /**
      * 

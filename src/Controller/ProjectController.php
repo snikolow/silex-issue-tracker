@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\Type\ProjectType;
 use App\Entity\Project;
+use App\Entity\MemberRole;
 
 class ProjectController extends BaseController {
     
@@ -125,26 +126,37 @@ class ProjectController extends BaseController {
 
             if( $memberId && count($rolesIds) ) {
                 $user = $this->getRepository('User')->find($memberId);
-                $project->addMember($user);
                 
-                /**
-                 * @TODO: A new set of entities that links needs to
-                 * be added here, so that the selected member with the 
-                 * roles that we checked.
-                 */
+                if( ! $project->isAlreadyMember($user) ) {
+                    $project->addMember($user);
+
+                    /**
+                     * @TODO: A new set of entities that links needs to
+                     * be added here, so that the selected member with the 
+                     * roles that we checked.
+                     */
+                    foreach($rolesIds as $id) {
+                        $role = $this->getManager()->find('App\Entity\Role', $id);
+
+                        $entity = new MemberRole();
+                        $entity->setMember($user);
+                        $entity->setRole($role);
+                        $this->getManager()->persist($entity);
+                    }
+
+                    $this->getManager()->persist($project);
+                    $response = array(
+                        'success' => true,
+                        'member' => $user->getName(),
+                        'memberId' => $user->getId()
+                    );
+                }
                 
-                $this->getManager()->persist($project);
-                $response = array(
-                    'success' => true,
-                    'member' => $user->getName(),
-                    'memberId' => $user->getId()
-                );
+                $this->getManager()->flush();
             }
             else {
                 $response['message'] = 'Invalid member or roles!';
             }
-            
-            $this->getManager()->flush();
         }
         else {
             $response['message'] = 'Project not found!';

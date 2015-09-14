@@ -71,16 +71,55 @@ class SideNavigationWidget extends AbstractWidget {
      * @return array
      */
     private function getNavigationLinks() {
-        return array(
-            array('title' => 'nav.dashboard', 'icon' => 'fa fa-dashboard', 'route' => 'homepage'),
-            array('title' => 'nav.projects', 'icon' => 'fa fa-edit', 'route' => 'projects_list'),
-            array('title' => 'nav.users', 'icon' => 'fa fa-user', 'route' => 'users_list', 'roles' => array('ROLE_ADMIN')),
-            array('title' => 'nav.categories', 'icon' => 'fa fa-book', 'route' => 'categories_list', 'roles' => array('ROLE_ADMIN')),
-            array('title' => 'nav.priorities', 'icon' => 'fa fa-exclamation-triangle', 'route' => 'priorities_list', 'roles' => array('ROLE_ADMIN')),
-            array('title' => 'nav.statuses', 'icon' => 'fa fa-list', 'route' => 'statuses_list', 'roles' => array('ROLE_ADMIN')),
-            array('title' => 'nav.trackers', 'route' => 'trackers_list', 'roles' => array('ROLE_ADMIN')),
-            array('title' => 'nav.roles', 'icon' => 'fa fa-database', 'route' => 'roles_list', 'roles' => array('ROLE_ADMIN'))
+        $items = array(
+            'dashboard' => array(
+                'title' => 'nav.dashboard', 
+                'icon' => 'fa fa-dashboard', 
+                'route' => 'homepage'
+            ),
+            'projects' => array(
+                'title' => 'nav.projects', 
+                'icon' => 'fa fa-edit', 
+                'route' => 'projects_list'
+            ),
+            'users' => array(
+                'title' => 'nav.users', 
+                'icon' => 'fa fa-user', 
+                'route' => 'users_list', 
+                'roles' => array('ROLE_ADMIN')
+            ),
+            'title' => array(
+                'title' => 'nav.categories', 
+                'icon' => 'fa fa-book', 
+                'route' => 'categories_list', 
+                'roles' => array('ROLE_ADMIN')
+            ),
+            'priorities' => array(
+                'title' => 'nav.priorities', 
+                'icon' => 'fa fa-exclamation-triangle', 
+                'route' => 'priorities_list', 
+                'roles' => array('ROLE_ADMIN')
+            ),
+            'statuses' => array(
+                'title' => 'nav.statuses', 
+                'icon' => 'fa fa-list', 
+                'route' => 'statuses_list', 
+                'roles' => array('ROLE_ADMIN')
+            ),
+            'trackers' => array(
+                'title' => 'nav.trackers', 
+                'route' => 'trackers_list', 
+                'roles' => array('ROLE_ADMIN')
+            ),
+            'roles' => array(
+                'title' => 'nav.roles', 
+                'icon' => 'fa fa-database', 
+                'route' => 'roles_list', 
+                'roles' => array('ROLE_ADMIN')
+            )
         );
+        
+        return $items;
     }
 
 }

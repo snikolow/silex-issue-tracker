@@ -29,6 +29,7 @@ title:
             update: Update status
         issues:
             list: Issues
+            create: Add new issue
             update: Update issue details
             comments: Comments
             addComment: Add new comment

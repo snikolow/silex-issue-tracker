@@ -1,0 +1,26 @@
+{
+    "name": "bower-issue_tracker",
+    "version": "1.0.0",
+    "description": "",
+    "moduleType": [
+        "node"
+    ],
+    "keywords": [
+        ""
+    ],
+    "authors": [
+        "snikolow"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "public_html/assets/components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "admin-lte": "2.*"
+    }
+}

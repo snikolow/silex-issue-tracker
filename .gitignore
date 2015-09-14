@@ -4,4 +4,6 @@ var/log/*
 var/cache/*
 !var/cache/.gitkeep
 composer.lock
+npm-debug.log
 src/Resources/config/config.php
+public_html/assets/components

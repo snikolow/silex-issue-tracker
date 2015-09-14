@@ -84,7 +84,7 @@ class IssueController extends BaseController {
         
         return $this->render('issues/create.twig',
                 array(
-                    'title' => '',
+                    'title' => $this->trans('title.page.issues.create'),
                     'form' => $form->createView()
                 )
         );
