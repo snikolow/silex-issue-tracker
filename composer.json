@@ -8,8 +8,10 @@
         "symfony/yaml": "2.7",
         "symfony/validator": "2.7",
         "symfony/doctrine-bridge": "2.7",
+        "symfony/twig-bridge": "2.7",
         "symfony/config": "2.7",
-        "swiftmailer/swiftmailer": "^5.4"
+        "swiftmailer/swiftmailer": "^5.4",
+        "twig/twig": "1.22"
     },
     "autoload": {
         "psr-4": {
