@@ -6,6 +6,6 @@ var/cache/*
 composer.lock
 npm-debug.log
 app/config/config.yml
-app/views/theme
+app/views/theme/*
 !app/views/theme/.gitkeep
 public_html/assets/components
