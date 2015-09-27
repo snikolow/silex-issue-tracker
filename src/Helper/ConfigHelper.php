@@ -38,7 +38,7 @@ class ConfigHelper {
         return null;
     }
 
-    public function getContents($filename) {
+    public static function getContents($filename) {
         return file_get_contents(ROOT_PATH . '/app/config/' . $filename);
     }
 
