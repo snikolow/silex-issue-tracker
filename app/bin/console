@@ -1,0 +1,41 @@
+#!/usr/bin/env php
+<?php
+
+require dirname(__DIR__) . '/../public_html/bootstrap.php';
+
+use Symfony\Component\Console\Helper\HelperSet;
+use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
+use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
+use Tracker\Command\SeedCommand;
+
+$application = $app['console'];
+
+$application->setHelperSet(
+        new HelperSet(array(
+            'db' => new ConnectionHelper($app['orm.em']->getConnection()),
+            'em' => new EntityManagerHelper($app['orm.em'])
+        )
+));
+
+$application->addCommands(array(
+    // Dotrine commands
+    new \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\ClearCache\ResultCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\SchemaTool\DropCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\EnsureProductionSettingsCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\ConvertDoctrine1SchemaCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\GenerateRepositoriesCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\GenerateEntitiesCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\RunDqlCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand(),
+
+    // Application defined commands
+    new SeedCommand()
+));
+
+$application->run();

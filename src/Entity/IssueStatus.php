@@ -1,32 +1,35 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * @Entity(repositoryClass="App\Repository\IssueStatusRepository")
+ * @Entity(repositoryClass="Tracker\Repository\IssueStatusRepository")
  * @Table(name="issue_statuses")
  */
 class IssueStatus {
-    
+
     /**
      * @Id
      * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
      */
     public $id;
-    
+
     /**
      * @Column(type="string")
      */
     public $title;
-    
+
     /**
      * @Column(type="string", length=50)
      */
     public $className;
-    
+
     /**
-     * 
+     *
      * @return int
      */
     public function getId() {
@@ -34,7 +37,7 @@ class IssueStatus {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getTitle() {
@@ -42,7 +45,7 @@ class IssueStatus {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getClassName() {
@@ -50,7 +53,7 @@ class IssueStatus {
     }
 
     /**
-     * 
+     *
      * @param int $id
      */
     public function setId($id) {
@@ -58,7 +61,7 @@ class IssueStatus {
     }
 
     /**
-     * 
+     *
      * @param string $title
      */
     public function setTitle($title) {
@@ -66,13 +69,21 @@ class IssueStatus {
     }
 
     /**
-     * 
+     *
      * @param string $className
      */
     public function setClassName($className) {
         $this->className = $className;
     }
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraints('title', array(
+            new Assert\NotBlank(),
+            new Assert\Length(array('min' => 3))
+        ));
 
-    
+        $metadata->addPropertyConstraint('className', new Assert\NotBlank());
+    }
+
 }

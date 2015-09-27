@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widget;
+namespace Tracker\Widget;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\HttpFoundation\Request;

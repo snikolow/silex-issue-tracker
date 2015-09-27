@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @Entity(repositoryClass="App\Repository\RoleRepository")
+ * @Entity(repositoryClass="Tracker\Repository\RoleRepository")
  * @Table(name="roles")
  */
 class Role {
@@ -28,7 +28,7 @@ class Role {
     public $identifier;
     
     /**
-     * @ManyToMany(targetEntity="App\Entity\Permission")
+     * @ManyToMany(targetEntity="Tracker\Entity\Permission")
      */
     public $permissions;
     

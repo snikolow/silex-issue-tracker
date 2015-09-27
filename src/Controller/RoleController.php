@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\Type\RoleType;
-use App\Entity\Role;
+use Tracker\Form\Type\RoleType;
+use Tracker\Entity\Role;
 
 class RoleController extends BaseController {
     

@@ -5,5 +5,7 @@ var/cache/*
 !var/cache/.gitkeep
 composer.lock
 npm-debug.log
-src/Resources/config/config.php
+app/config/config.yml
+app/views/theme
+!app/views/theme/.gitkeep
 public_html/assets/components

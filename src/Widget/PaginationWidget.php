@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widget;
+namespace Tracker\Widget;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -19,7 +19,7 @@ class PaginationWidget extends AbstractWidget {
     }
     
     public function getContent() {
-        /* @var $paginator \App\Service\Paginator */
+        /* @var $paginator \Tracker\Service\Paginator */
         $paginator = $this->params['paginator'];
         
         return $this->render('widget/pagination.twig',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Mailer;
+namespace Tracker\Service\Mailer;
 
 /**
  * Implement the following interface if more email providers are needed.

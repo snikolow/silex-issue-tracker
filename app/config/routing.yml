@@ -1,0 +1,38 @@
+homepage:
+    path: /
+    defaults: { _controller: Tracker\Controller\HomeController::indexAction }
+
+backend_auth:
+    path: /auth
+    defaults: { _controller: Tracker\Controller\SecurityController::authAction }
+
+projects:
+    resource: "routes/projects.yml"
+    prefix: /projects
+
+trackers:
+    resource: "routes/trackers.yml"
+    prefix: /trackers
+
+priorities:
+    resource: "routes/priorities.yml"
+    prefix: /priorities
+
+issue_status:
+    resource: "routes/issue_status.yml"
+    prefix: /statuses
+
+roles:
+    resource: "routes/roles.yml"
+    prefix: /roles
+
+users:
+    resource: "routes/users.yml"
+    prefix: /users
+
+issues:
+    resource: "routes/issues.yml"
+
+categories:
+    resource: "routes/categories.yml"
+    prefix: /categories

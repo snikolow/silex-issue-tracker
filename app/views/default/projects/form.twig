@@ -1,0 +1,110 @@
+{% extends 'layouts/main.twig' %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/autocomplete/autocomplete.js') }}"></script>
+    <script src="{{ asset('assets/js/app/projects.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        {{ form_start(form) }}
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs pull-right">
+                {% if project is not empty %}
+                <li>
+                    <a href="#members" data-toggle="tab"><i class="fa fa-user"></i> {{ 'tabs.members' | trans }}</a>
+                </li>
+                {% endif %}
+                <li class="active">
+                    <a href="#details" data-toggle="tab"><i class="fa fa-pencil"></i> {{ 'tabs.details' | trans }}</a>
+                </li>
+                <li class="pull-left header">{{ title }}</li>
+            </ul>
+            <div class="tab-content">
+                <div id="details" class="tab-pane active">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.identifier) }}
+                    {{ form_row(form.category) }}
+                    {{ form_row(form.isPublic) }}
+                    {{ form_row(form.trackers) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.submit) }}
+                </div>
+                <div id="members" class="tab-pane">
+                    {% if project is not empty %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">{{ 'tabs.members' | trans }}</div>
+                                <table class="table table-bordered" data-role="members-table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'list.name' | trans }}</th>
+                                            <th>{{ 'list.roles' | trans }}</th>
+                                            <th>{{ 'list.actions' | trans }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in project.members %}
+                                            <tr data-member="{{ item.member.name }}" data-member-id="{{ item.member.id }}">
+                                                <td>{{ item.member.name }}</td>
+                                                <td>
+                                                    {{ item.getMemberRolesToString }} 
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:;" data-role="remove-member" class="btn btn-default btn-xs">
+                                                        <i class="fa fa-trash"></i>
+                                                        {{ 'buttons.remove' | trans }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr class="hidden" data-role="row-template">
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <a href="javascript:;" data-role="remove-member" class="btn btn-default btn-xs">
+                                                    <i class="fa fa-trash"></i>
+                                                    {{ 'buttons.remove' | trans }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">{{ 'title.page.projects.addMember' | trans }}</div>
+                                <div class="panel-body">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="users-autocomplete" 
+                                               class="form-control input-sm" 
+                                               placeholder="Start typing a name..." 
+                                               autocomplete="off" 
+                                               data-role="autocomplete"
+                                        />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="button" data-role="add-member">{{ 'buttons.addMember' | trans }}</button>
+                                        </span>
+                                    </div>
+                                    <input type="hidden" data-role="member" value=""/>
+                                    <input type="hidden" data-role="memberId" value=""/>
+                                    {{ form_row(form.roles) }}
+                                    <span class="hidden" data-role="projectId" data-value="{{ project.id }}"></span>
+                                    <span class="hidden" data-role="autocompleteUrl" data-value="{{ path('ajax_users_autocomplete') }}"></span>
+                                    <span class="hidden" data-role="addMemberUrl" data-value="{{ path('ajax_project_addmember') }}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

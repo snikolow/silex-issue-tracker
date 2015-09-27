@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace Tracker\Service;
 
 class Breadcrumb {
 

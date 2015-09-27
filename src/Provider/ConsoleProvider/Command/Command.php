@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Provider\ConsoleProvider\Command;
+namespace Tracker\Provider\ConsoleProvider\Command;
 
 use Symfony\Component\Console\Command\Command as BaseCommand;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Helper\DateTime;
+namespace Tracker\Helper\DateTime;
 
 class TimeAgo {
-    
+
     /**
-     * 
+     *
      * @param int $timestamp
      * @return string
      */
@@ -16,7 +16,7 @@ class TimeAgo {
         if( $estimateTime < 1 ) {
             return 'less than 1 second ago';
         }
-        
+
         $map = array(
             12 * 30 * 24 * 60 * 60  => 'year',
             30 * 24 * 60 * 60       => 'month',
@@ -39,5 +39,5 @@ class TimeAgo {
             }
         }
     }
-    
+
 }

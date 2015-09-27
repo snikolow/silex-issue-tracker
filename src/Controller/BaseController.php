@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Form\FormInterface;
-use App\Component\Application;
+use Tracker\Application;
 
 class BaseController {
 
@@ -16,7 +16,7 @@ class BaseController {
      */
     protected $application;
 
-    public function setApplication(Application $app) {
+    public function __construct(Application $app) {
         $this->application = $app;
     }
 
@@ -34,10 +34,10 @@ class BaseController {
 
         return null;
     }
-    
+
     /**
      * Get entity manager
-     * 
+     *
      * @return \Doctrine\ORM\EntityManager
      */
     public function getManager() {
@@ -46,45 +46,45 @@ class BaseController {
 
     /**
      * Return a repository instance based on the class name.
-     * 
+     *
      * @param string $class
      * @return \Doctrine\ORM\EntityRepository
      */
     public function getRepository($class) {
-        if( strpos($class, 'App\Entity') !== false ) {
-            $class = str_replace('App\Entity', '', $class);
+        if( strpos($class, 'Tracker\Entity') !== false ) {
+            $class = str_replace('Tracker\Entity', '', $class);
         }
-        
-        $namespace = sprintf('App\\Entity\\%s', $class);
-        
+
+        $namespace = sprintf('Tracker\\Entity\\%s', $class);
+
         return $this->getManager()->getRepository($namespace);
     }
-    
+
     /**
      * Shortcut for persisting an entity.
      * This should be executed last, or at least not abused
      * since flush is also being executed.
-     * 
+     *
      * @param mixed $entity
-     * @return \App\Controller\BaseController
+     * @return \Tracker\Controller\BaseController
      */
     public function persistAndFlush($entity) {
         $this->getManager()->persist($entity);
         $this->getManager()->flush();
-        
+
         return $this;
     }
-    
+
     /**
      * See @persistAndFlush
-     * 
+     *
      * @param mixed $entity
-     * @return \App\Controller\BaseController
+     * @return \Tracker\Controller\BaseController
      */
     public function removeAndFlush($entity) {
         $this->getManager()->remove($entity);
         $this->getManager()->flush();
-        
+
         return $this;
     }
 
@@ -209,23 +209,39 @@ class BaseController {
      * @param mixed $object
      *
      * @return bool
-     * @throws AuthenticationCredentialsNotFoundException when the token storage has no authentication token.
      */
     public function isGranted($attributes, $object = null) {
         return $this->get('security.authorization_checker')->isGranted($attributes, $object);
     }
 
     /**
+     * Throws an exception unless the attributes are granted against the current authentication token and optionally
+     * supplied object.
+     *
+     * @param mixed  $attributes The attributes
+     * @param mixed  $object     The object
+     * @param string $message    The message passed to the exception
+     *
+     * @throws HttpException
+     */
+    public function denyAccessUnlessGranted($attributes, $object = null, $message = 'Access Denied.')
+    {
+        if( ! $this->isGranted($attributes, $object) ) {
+            $this->application->abort(403, $message);
+        }
+    }
+
+    /**
      * Return an instance of currently logged user (if present).
      *
-     * @return \App\Component\Security\User\SimpleUser|null
+     * @return \Tracker\Entity\User|null
      */
     public function getUser() {
         return $this->get('user');
     }
-    
+
     /**
-     * 
+     *
      * @param FormInterface $form
      * @return array
      */

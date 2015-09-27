@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Mailer;
+namespace Tracker\Service\Mailer;
 
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -47,7 +47,7 @@ abstract class AbstractMailer {
     
     /**
      * 
-     * @return \App\Service\Mailer
+     * @return \Tracker\Service\Mailer
      */
     public function newMessage() {
         $this->message = \Swift_Message::newInstance();
@@ -58,7 +58,7 @@ abstract class AbstractMailer {
     /**
      * 
      * @param string $from
-     * @return \App\Service\Mailer
+     * @return \Tracker\Service\Mailer
      */
     public function setFrom($from) {
         $this->message->setFrom($from);
@@ -69,7 +69,7 @@ abstract class AbstractMailer {
     /**
      * 
      * @param string $address
-     * @return \App\Service\Mailer
+     * @return \Tracker\Service\Mailer
      */
     public function setTo($address) {
         $this->message->addTo($address);
@@ -80,7 +80,7 @@ abstract class AbstractMailer {
     /**
      * 
      * @param string $subject
-     * @return \App\Service\Mailer
+     * @return \Tracker\Service\Mailer
      */
     public function setSubject($subject) {
         $this->message->setSubject($subject);
@@ -91,7 +91,7 @@ abstract class AbstractMailer {
     /**
      * 
      * @param string $content
-     * @return \App\Service\Mailer
+     * @return \Tracker\Service\Mailer
      */
     public function setBody($content) {
         $this->message->setBody($content);

@@ -1,85 +1,86 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Helper\String\Slugify;
+use Tracker\Helper\String\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * @Entity(repositoryClass="App\Repository\ProjectRepository")
+ * @Entity(repositoryClass="Tracker\Repository\ProjectRepository")
  * @Table(name="projects")
  * @HasLifecycleCallbacks
  */
 class Project {
-    
+
     /**
      * @Id
      * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
      */
     public $id;
-    
+
     /**
      * @Column(type="string", length=100)
      */
     public $title;
-    
+
     /**
      * @Column(type="text")
      */
     public $description;
-    
+
     /**
      * @Column(type="string", length=120)
      */
     public $identifier;
-    
+
     /**
      * @Column(type="boolean", length=1)
      */
     public $isPublic = true;
-    
+
     /**
      * @Column(type="date")
      */
     public $createdAt;
-    
+
     /**
      * @Column(type="date")
      */
     public $updatedAt;
-    
+
     /**
-     * @var \App\Entity\User
-     * @ManyToOne(targetEntity="App\Entity\User")
+     * @var \Tracker\Entity\User
+     * @ManyToOne(targetEntity="Tracker\Entity\User")
      * @JoinColumn(name="createdBy_id", referencedColumnName="id", nullable=true)
      */
     public $createdBy;
-    
+
     /**
-     * @ManyToMany(targetEntity="App\Entity\Tracker")
+     * @ManyToMany(targetEntity="Tracker\Entity\Tracker")
      */
     public $trackers;
-    
+
     /**
-     * @ManyToMany(targetEntity="App\Entity\User")
-     * @JoinTable(name="project_members")
+     * @OneToMany(targetEntity="Tracker\Entity\ProjectMember", mappedBy="project")
      */
     public $members;
-    
+
     /**
-     * @ManyToOne(targetEntity="App\Entity\Category")
+     * @ManyToOne(targetEntity="Tracker\Entity\Category")
      * @JoinColumn(name="category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     public $category;
-    
+
     public function __construct() {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->trackers  = new ArrayCollection();
         $this->members   = new ArrayCollection();
     }
-    
+
     /**
      * @PrePersist
      */
@@ -88,9 +89,9 @@ class Project {
             $this->identifier = Slugify::createSlug($this->title);
         }
     }
-    
+
     /**
-     * 
+     *
      * @return int
      */
     public function getId() {
@@ -98,7 +99,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getTitle() {
@@ -106,7 +107,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getDescription() {
@@ -114,7 +115,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getIdentifier() {
@@ -122,7 +123,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function getIsPublic() {
@@ -130,7 +131,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return \DateTime
      */
     public function getCreatedAt() {
@@ -138,7 +139,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return \DateTime
      */
     public function getUpdatedAt() {
@@ -146,22 +147,22 @@ class Project {
     }
 
     /**
-     * 
-     * @return \App\Entity\User
+     *
+     * @return \Tracker\Entity\User
      */
     public function getCreatedBy() {
         return $this->createdBy;
     }
-    
+
     /**
-     * @return \App\Entity\Category
+     * @return \Tracker\Entity\Category
      */
     public function getCategory() {
         return $this->category;
     }
-    
+
     /**
-     * 
+     *
      * @param int $id
      */
     public function setId($id) {
@@ -169,7 +170,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param string $title
      */
     public function setTitle($title) {
@@ -177,7 +178,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param string $description
      */
     public function setDescription($description) {
@@ -185,7 +186,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param string $identifier
      */
     public function setIdentifier($identifier) {
@@ -193,7 +194,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param bool $isPublic
      */
     public function setIsPublic($isPublic) {
@@ -201,7 +202,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param \DateTime $createdAt
      */
     public function setCreatedAt($createdAt) {
@@ -209,7 +210,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param \DateTime $updatedAt
      */
     public function setUpdatedAt($updatedAt) {
@@ -217,15 +218,15 @@ class Project {
     }
 
     /**
-     * 
-     * @param \App\Entity\User $createdBy
+     *
+     * @param \Tracker\Entity\User $createdBy
      */
-    public function setCreatedBy(\App\Entity\User $createdBy) {
+    public function setCreatedBy(\Tracker\Entity\User $createdBy) {
         $this->createdBy = $createdBy;
     }
 
     /**
-     * 
+     *
      * @return ArrayCollection
      */
     public function getTrackers() {
@@ -233,7 +234,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @return ArrayCollection
      */
     public function getMembers() {
@@ -241,7 +242,7 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param array $trackers
      */
     public function setTrackers($trackers) {
@@ -249,48 +250,30 @@ class Project {
     }
 
     /**
-     * 
+     *
      * @param array $members
      */
     public function setMembers($members) {
         $this->members = $members;
     }
-    
+
     /**
-     * 
-     * @param \App\Entity\Category
+     *
+     * @param \Tracker\Entity\Category
      */
-    public function setCategory(\App\Entity\Category $category = null) {
+    public function setCategory(\Tracker\Entity\Category $category = null) {
         $this->category = $category;
     }
 
-    /**
-     * 
-     * @param \App\Entity\User $user
-     * @return bool
-     */
-    public function isAlreadyMember(\App\Entity\User $user) {
-        return (bool) $this->getMembers()->contains($user);
+    public static function loadValidatorMetadata(ClassMetadata $metadata) {
+        $metadata->addPropertyConstraints('title', array(
+            new Assert\NotBlank(),
+            new Assert\Length(array('min' => 3, 'max' => 50))
+        ));
+
+        $metadata->addPropertyConstraint('description', new Assert\NotBlank());
+
+        $metadata->addPropertyConstraint('trackers', new Assert\Count(array('min' => 1)));
     }
-        
-    /**
-     * 
-     * @param \App\Entity\User $user
-     */
-    public function addMember(\App\Entity\User $user = null) {
-        if( $user && ! $this->getMembers()->contains($user) ) {
-            $this->getMembers()->add($user);
-        }
-    }
-    
-    /**
-     * 
-     * @param \App\Entity\User $user
-     */
-    public function removeMember(\App\Entity\User $user) {
-        if( $this->getMembers()->contains($user) ) {
-            $this->getMembers()->removeElement($user);
-        }
-    }
-    
+
 }

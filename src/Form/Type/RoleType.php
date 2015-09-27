@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace Tracker\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +13,7 @@ class RoleType extends AbstractType {
     }
     
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefault('data_class', 'App\Entity\Role');
+        $resolver->setDefault('data_class', 'Tracker\Entity\Role');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -21,8 +21,8 @@ class RoleType extends AbstractType {
         $builder->add('identifier', 'text');
         $builder->add('permissions', 'entity',
                 array(
-                    'class' => 'App\Entity\Permission',
-                    'property' => 'title',
+                    'class' => 'Tracker\Entity\Permission',
+                    'choice_label' => 'title',
                     'expanded' => true,
                     'multiple' => true,
                     'label_attr' => array(

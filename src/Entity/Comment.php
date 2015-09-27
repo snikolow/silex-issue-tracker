@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
 
 /**
- * @Entity(repositoryClass="App\Repository\CommentRepository")
+ * @Entity(repositoryClass="Tracker\Repository\CommentRepository")
  * @Table(name="comments")
  */
 class Comment {
@@ -16,13 +16,13 @@ class Comment {
     public $id;
     
     /**
-     * @ManyToOne(targetEntity="App\Entity\Issue")
+     * @ManyToOne(targetEntity="Tracker\Entity\Issue")
      * @JoinColumn(name="issue_id", referencedColumnName="id", onDelete="CASCADE")
      */
     public $issue;
     
     /**
-     * @ManyToOne(targetEntity="App\Entity\User")
+     * @ManyToOne(targetEntity="Tracker\Entity\User")
      * @JoinColumn(name="member_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     public $member;
@@ -51,7 +51,7 @@ class Comment {
 
     /**
      * 
-     * @return \App\Entity\Issue
+     * @return \Tracker\Entity\Issue
      */
     public function getIssue() {
         return $this->issue;
@@ -59,7 +59,7 @@ class Comment {
 
     /**
      * 
-     * @return \App\Entity\User
+     * @return \Tracker\Entity\User
      */
     public function getMember() {
         return $this->member;
@@ -91,17 +91,17 @@ class Comment {
 
     /**
      * 
-     * @param \App\Entity\Issue $issue
+     * @param \Tracker\Entity\Issue $issue
      */
-    public function setIssue(\App\Entity\Issue $issue) {
+    public function setIssue(\Tracker\Entity\Issue $issue) {
         $this->issue = $issue;
     }
 
     /**
      * 
-     * @param \App\Entity\User $member
+     * @param \Tracker\Entity\User $member
      */
-    public function setMember(\App\Entity\User $member) {
+    public function setMember(\Tracker\Entity\User $member) {
         $this->member = $member;
     }
 

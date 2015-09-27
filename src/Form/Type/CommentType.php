@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace Tracker\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +13,7 @@ class CommentType extends AbstractType {
     }
     
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefault('data_class', 'App\Entity\Comment');
+        $resolver->setDefault('data_class', 'Tracker\Entity\Comment');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {

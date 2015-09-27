@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace Tracker\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

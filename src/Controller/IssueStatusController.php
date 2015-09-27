@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\Type\IssueStatusType;
-use App\Entity\IssueStatus;
+use Tracker\Form\Type\IssueStatusType;
+use Tracker\Entity\IssueStatus;
 
 class IssueStatusController extends BaseController {
 

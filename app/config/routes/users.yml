@@ -1,0 +1,25 @@
+users_list:
+    path: /{page}
+    defaults: { _controller: Tracker\Controller\UserController::listAction, page: 1 }
+    requirements:
+        page: \d+
+        
+users_create:
+    path: /create
+    defaults: { _controller: Tracker\Controller\UserController::createAction }
+    
+users_edit:
+    path: /edit/{id}
+    defaults: { _controller: Tracker\Controller\UserController::updateAction }
+    requirements:
+        id: \d+
+        
+users_delete:
+    path: /delete/{id}
+    defaults: { _controller: Tracker\Controller\UserController::deleteAction }
+    requirements:
+        id: \d+
+        
+ajax_users_autocomplete:
+    path: /ajax/autocomplete
+    defaults: { _controller: Tracker\Controller\UserController::ajaxAutocompleteAction }

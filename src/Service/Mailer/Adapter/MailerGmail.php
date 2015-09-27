@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Service\Mailer\Adapter;
+namespace Tracker\Service\Mailer\Adapter;
 
-use App\Service\Mailer\AbstractMailer;
-use App\Service\Mailer\MailerInterface;
+use Tracker\Service\Mailer\AbstractMailer;
+use Tracker\Service\Mailer\MailerInterface;
 
 class MailerGmail extends AbstractMailer implements MailerInterface {
     

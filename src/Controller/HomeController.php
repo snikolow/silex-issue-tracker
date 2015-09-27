@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 class HomeController extends BaseController {
 

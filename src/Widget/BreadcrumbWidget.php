@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Widget;
+namespace Tracker\Widget;
 
-use App\Service\Breadcrumb;
+use Tracker\Service\Breadcrumb;
 
 class BreadcrumbWidget extends AbstractWidget {
 
-    /** @var \App\Service\Breadcrumb */
+    /** @var \Tracker\Service\Breadcrumb */
     private $service;
 
     /**

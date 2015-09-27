@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Form\Type\UserType;
-use App\Entity\User;
+use Tracker\Form\Type\UserType;
+use Tracker\Entity\User;
 
 class UserController extends BaseController {
     

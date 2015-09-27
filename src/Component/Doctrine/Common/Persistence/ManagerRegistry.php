@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Component\Doctrine\Common\Persistence;
+namespace Tracker\Component\Doctrine\Common\Persistence;
 
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use Silex\Application;

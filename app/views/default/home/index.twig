@@ -1,0 +1,93 @@
+{% extends 'layouts/main.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        {{ 'title.page.dashboard.index' | trans }}
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{ 'title.page.dashboard.issues.assigned' | trans }}
+                                    <div class="box-tools pull-right">
+                                        <div class="label label-warning">Last 20 shown</div>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'list.id' | trans }}</th>
+                                            <th>{{ 'list.project' | trans }}</th>
+                                            <th>{{ 'list.subject' | trans }}</th>
+                                            <th>{{ 'list.tracker' | trans }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if assignedIssues | length > 0 %}
+                                            {% for object in assignedIssues %}
+                                                <tr>
+                                                    <td>{{ object.id }}</td>
+                                                    <td><a href="{{ path('issues_list', {'identifier': object.project.identifier}) }}">{{ object.project.title }}</a></td>
+                                                    <td><a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.subject }}</a></td>
+                                                    <td>{{ object.tracker.title }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="4" class="text-center alert-danger">No results found</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{ 'title.page.dashboard.issues.created' | trans }}
+                                    <div class="box-tools pull-right">
+                                        <div class="label label-warning">Last 20 shown</div>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'list.id' | trans }}</th>
+                                            <th>{{ 'list.project' | trans }}</th>
+                                            <th>{{ 'list.subject' | trans }}</th>
+                                            <th>{{ 'list.tracker' | trans }}</th>
+                                            <th>{{ 'list.createdAt' | trans }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if createdIssues | length > 0 %}
+                                            {% for object in createdIssues %}
+                                                <tr>
+                                                    <td>{{ object.id }}</td>
+                                                    <td><a href="{{ path('issues_list', {'identifier': object.project.identifier}) }}">{{ object.project.title }}</a></td>
+                                                    <td><a href="{{ path('issues_edit', {'id': object.id}) }}">{{ object.subject }}</a></td>
+                                                    <td>{{ object.tracker.title }}</td>
+                                                    <td>{{ object.createdAt | date('d F Y H:i') }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="5" class="text-center alert-danger">No results found</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

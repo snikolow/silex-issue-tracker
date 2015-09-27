@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace Tracker\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use App\Entity\Issue;
+use Tracker\Entity\Issue;
 
 class CommentRepository extends EntityRepository {
     

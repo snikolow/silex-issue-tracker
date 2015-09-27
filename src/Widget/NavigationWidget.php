@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widget;
+namespace Tracker\Widget;
 
 class NavigationWidget extends AbstractWidget {
 

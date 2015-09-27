@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Component\Security\Voter;
+namespace Tracker\Component\Security\Voter;
 
 use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
-use App\Entity\User;
+use Tracker\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class IssueVoter extends AbstractVoter {
@@ -16,14 +16,14 @@ class IssueVoter extends AbstractVoter {
     }
 
     protected function getSupportedClasses() {
-        return array('App\Entity\Issue');
+        return array('Tracker\Entity\Issue');
     }
 
     /**
-     * 
+     *
      * @param string $attribute
-     * @param \App\Entity\Issue $issue
-     * @param \App\Entity\User $user
+     * @param \Tracker\Entity\Issue $issue
+     * @param \Tracker\Entity\User $user
      * @return boolean
      * @throws \LogicException
      */
@@ -39,23 +39,23 @@ class IssueVoter extends AbstractVoter {
         if( ! $user instanceof User ) {
             throw new \LogicException('The user is somehow not our User class!');
         }
-        
+
         // If the current user have administrator rights, we should return true
         if( $user->getIsAdmin() ) {
             return true;
         }
-        
+
         $project = $issue->getProject();
-        
+
         switch ($attribute) {
             case self::VIEW:
                 if( $project->getMembers()->contains($user) ) {
                     return true;
                 }
-                
+
                 break;
             case self::EDIT:
-                
+
                 break;
         }
 

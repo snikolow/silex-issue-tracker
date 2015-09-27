@@ -1,0 +1,18 @@
+issues_create:
+    path: /projects/{identifier}/issues/create
+    defaults: { _controller: Tracker\Controller\IssueController::createAction }
+    
+issues_list:
+    path: /projects/{identifier}/issues/{page}
+    defaults: { _controller: Tracker\Controller\IssueController::listAction, page: 1 }
+    
+issues_edit:
+    path: /issues/{id}
+    defaults: { _controller: Tracker\Controller\IssueController::updateAction }
+    requirements:
+        id: \d+
+        
+issues_ajax_update:
+    path: /issues/ajax/update
+    defaults: { _controller: Tracker\Controller\IssueController::ajaxUpdateAction }
+    methods: [POST]

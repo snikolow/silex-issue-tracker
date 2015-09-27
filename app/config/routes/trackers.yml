@@ -1,0 +1,21 @@
+trackers_list:
+    path: /{page}
+    defaults: { _controller: Tracker\Controller\TrackerController::listAction, page: 1 }
+    requirements:
+        page: \d+
+        
+trackers_create:
+    path: /create
+    defaults: { _controller: Tracker\Controller\TrackerController::createAction }
+    
+trackers_edit:
+    path: /edit/{id}
+    defaults: { _controller: Tracker\Controller\TrackerController::updateAction }
+    requirements:
+        id: \d+
+        
+trackers_delete:
+    path: /delete/{id}
+    defaults: { _controller: Tracker\Controller\TrackerController::deleteAction }
+    requirements:
+        id: \d+

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widget;
+namespace Tracker\Widget;
 
 abstract class AbstractWidget {
 
@@ -19,7 +19,7 @@ abstract class AbstractWidget {
     /**
      *
      * @param \Twig_Environment $twig
-     * @return \App\Widget\AbstractWidget
+     * @return \Tracker\Widget\AbstractWidget
      */
     public function setTwig(\Twig_Environment $twig) {
         $this->twig = $twig;
@@ -30,7 +30,7 @@ abstract class AbstractWidget {
     /**
      *
      * @param array $params
-     * @return \App\Widget\AbstractWidget
+     * @return \Tracker\Widget\AbstractWidget
      */
     public function setParams(array $params) {
         $this->params = $params;

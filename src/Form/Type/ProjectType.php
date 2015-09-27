@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace Tracker\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +16,7 @@ class ProjectType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
                 array(
-                    'data_class' => 'App\Entity\Project',
+                    'data_class' => 'Tracker\Entity\Project',
                     'edit' => false,
                 )
         );
@@ -33,8 +33,8 @@ class ProjectType extends AbstractType {
         $builder->add('identifier', 'text', array('required' => false, 'disabled' => $options['edit']));
         $builder->add('category', 'entity',
                 array(
-                    'class' => 'App\Entity\Category',
-                    'property' => 'title',
+                    'class' => 'Tracker\Entity\Category',
+                    'choice_label' => 'title',
                     'required' => false,
                     'empty_value' => '-- Please select --',
                     'attr' => array('data-role' => 'select2')
@@ -48,8 +48,8 @@ class ProjectType extends AbstractType {
         );
         $builder->add('trackers', 'entity',
             array(
-                'class' => 'App\Entity\Tracker',
-                'property' => 'title',
+                'class' => 'Tracker\Entity\Tracker',
+                'choice_label' => 'title',
                 'multiple' => true,
                 'expanded' => true,
                 'label_attr' => array(
@@ -69,8 +69,8 @@ class ProjectType extends AbstractType {
             $builder->add('roles', 'entity',
                     array(
                         'mapped' => false,
-                        'class' => 'App\Entity\Role',
-                        'property' => 'title',
+                        'class' => 'Tracker\Entity\Role',
+                        'choice_label' => 'title',
                         'multiple' => true,
                         'expanded' => true,
                         'attr' => array('data-role' => 'roles')

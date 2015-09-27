@@ -1,27 +1,30 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * @Entity(repositoryClass="App\Repository\TrackerRepository")
+ * @Entity(repositoryClass="Tracker\Repository\TrackerRepository")
  * @Table(name="trackers")
  */
 class Tracker {
-    
+
     /**
      * @Id
      * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
      */
     public $id;
-    
+
     /**
      * @Column(type="string")
      */
     public $title;
-    
+
     /**
-     * 
+     *
      * @return int
      */
     public function getId() {
@@ -29,7 +32,7 @@ class Tracker {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getTitle() {
@@ -37,7 +40,7 @@ class Tracker {
     }
 
     /**
-     * 
+     *
      * @param int $id
      */
     public function setId($id) {
@@ -45,12 +48,18 @@ class Tracker {
     }
 
     /**
-     * 
+     *
      * @param string $title
      */
     public function setTitle($title) {
         $this->title = $title;
     }
 
-    
+    public static function loadValidatorMetadata(ClassMetadata $metadata) {
+        $metadata->addPropertyConstraints('title', array(
+            new Assert\NotBlank(),
+            new Assert\Length(array('min' => 3, 'max' => 50))
+        ));
+    }
+
 }

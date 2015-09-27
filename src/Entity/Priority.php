@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * @Entity(repositoryClass="App\Repository\PriorityRepository")
+ * @Entity(repositoryClass="Tracker\Repository\PriorityRepository")
  * @Table(name="priorities")
  */
 class Priority {

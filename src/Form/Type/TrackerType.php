@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace Tracker\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +14,7 @@ class TrackerType extends AbstractType {
     }
     
     public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefault('data_class', 'App\Entity\Tracker');
+        $resolver->setDefault('data_class', 'Tracker\Entity\Tracker');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {

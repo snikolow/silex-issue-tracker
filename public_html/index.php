@@ -1,6 +1,6 @@
 <?php
 
-require_once 'bootstrap.php';
+require 'bootstrap.php';
+$app->configureOptions();
 
-$app->initControllerResolver();
 $app->run();

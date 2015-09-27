@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Form\Type\ProjectType;
-use App\Entity\Project;
-use App\Entity\MemberRole;
+use Tracker\Form\Type\ProjectType;
+use Tracker\Entity\Project;
+use Tracker\Entity\ProjectMember;
 
 class ProjectController extends BaseController {
     
@@ -75,8 +75,8 @@ class ProjectController extends BaseController {
                 ->add('Projects', 'projects_list')
                 ->add('Manage project');
         
-        if( ! $project = $this->getRepository('Project')->find($id) ) {
-            $this->application->abort(404, 'The request project was not found!');
+        if( ! $project = $this->getRepository('Project')->findProjectById($id) ) {
+            $this->application->abort(404, 'The requested project was not found!');
         }
         
         $form = $this->get('form.factory')->create(new ProjectType(), $project, array('edit' => true));
@@ -114,10 +114,20 @@ class ProjectController extends BaseController {
         return $this->redirectToRoute('projects_list');
     }
     
+    /**
+     * Add selected member to a project.
+     * 
+     * @TODO: This piece of code should be moved to it's own
+     * service file where all the magic should happen
+     * and receive the response data only.
+     * 
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function ajaxAddMemberAction(Request $request) {
         $response = array();
         
-        /* @var $project \App\Entity\Project */
+        /* @var $project \Tracker\Entity\Project */
         $project = $this->getRepository('Project')->find(intval($request->get('id')));
         
         if( $project instanceof Project ) {
@@ -127,22 +137,20 @@ class ProjectController extends BaseController {
             if( $memberId && count($rolesIds) ) {
                 $user = $this->getRepository('User')->find($memberId);
                 
-                if( ! $project->isAlreadyMember($user) ) {
-                    $project->addMember($user);
-
-                    /**
-                     * @TODO: A new set of entities that links needs to
-                     * be added here, so that the selected member with the 
-                     * roles that we checked.
-                     */
+                if( ! $this->getRepository('ProjectMember')->isAlreadyAMember($project, $user) ) {
+                    $projectMember = new ProjectMember();
+                    $projectMember->setProject($project);
+                    $projectMember->setMember($user);
+                    
+                    $this->getManager()->persist($projectMember);
+                    
                     foreach($rolesIds as $id) {
-                        $role = $this->getManager()->find('App\Entity\Role', $id);
+                        $role = $this->getManager()->find('Tracker\Entity\Role', $id);
 
-                        $entity = new MemberRole();
-                        $entity->setMember($user);
-                        $entity->setRole($role);
-                        $this->getManager()->persist($entity);
+                        $projectMember->getRoles()->add($role);
                     }
+                    
+                    $this->getManager()->persist($projectMember);
 
                     $this->getManager()->persist($project);
                     $response = array(

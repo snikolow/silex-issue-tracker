@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace Tracker\Service;
 
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use Doctrine\ORM\Query;
@@ -142,7 +142,7 @@ class Paginator implements \IteratorAggregate {
     /**
      * 
      * @param DoctrinePaginator $paginator
-     * @return \App\Service\Paginator
+     * @return \Tracker\Service\Paginator
      */
     private function setPaginator(DoctrinePaginator $paginator) {
         $this->paginator = $paginator;
@@ -170,7 +170,7 @@ class Paginator implements \IteratorAggregate {
     /**
      * 
      * @param int $page
-     * @return \App\Service\Paginator
+     * @return \Tracker\Service\Paginator
      */
     private function setCurrentPage($page) {
         if( $page < 1 ) {
@@ -187,7 +187,7 @@ class Paginator implements \IteratorAggregate {
     /**
      * 
      * @param int $limit
-     * @return \App\Service\Paginator
+     * @return \Tracker\Service\Paginator
      */
     private function setLimit($limit) {
         $this->limit = intval($limit);

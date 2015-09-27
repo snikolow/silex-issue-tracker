@@ -1,0 +1,26 @@
+projects_list:
+    path: /{page}
+    defaults: { _controller: Tracker\Controller\ProjectController::listAction, page: 1 }
+    requirements:
+        page: \d+
+        
+projects_create:
+    path: /create
+    defaults: { _controller: Tracker\Controller\ProjectController::createAction }
+    
+projects_edit:
+    path: /edit/{id}
+    defaults: { _controller: Tracker\Controller\ProjectController::updateAction }
+    requirements:
+        id: \d+
+        
+projects_delete:
+    path: /delete/{id}
+    defaults: { _controller: Tracker\Controller\ProjectController::deleteAction }
+    requirements:
+        id: \d+
+        
+ajax_project_addmember:
+    path: /ajax/add-member
+    defaults: { _controller: Tracker\Controller\ProjectController::ajaxAddMemberAction }
+    methods: [POST]

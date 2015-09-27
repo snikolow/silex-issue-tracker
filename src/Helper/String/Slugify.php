@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Helper\String;
+namespace Tracker\Helper\String;
 
 class Slugify {
 
     /**
      * Create a web friendly URL slug from a string.
-     * 
+     *
      * Although supported, transliteration is discouraged because
      *     1) most web browsers support UTF-8 characters in URLs
      *     2) transliteration causes a loss of information

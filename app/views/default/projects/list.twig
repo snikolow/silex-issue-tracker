@@ -1,0 +1,73 @@
+{% extends 'layouts/listTable.twig' %}
+
+{% set boxHeadingTitle = title %}
+
+{% block boxTools %}
+    <a class="btn btn-primary btn-xs" href="{{ path('projects_create') }}">
+        <i class="fa fa-plus-square"></i>
+        {{ 'buttons.create' | trans }}
+    </a>
+{% endblock %}
+
+{% block tableHead %}
+    <thead>
+        <tr>
+            <th>{{ 'list.id' | trans }}</th>
+            <th>{{ 'list.title' | trans }}</th>
+            <th>{{ 'list.category' | trans }}</th>
+            <th>{{ 'list.isPublic' | trans }}</th>
+            <th>{{ 'list.createdAt' | trans }}</th>
+            <th>{{ 'list.updatedAt' | trans }}</th>
+            <th>{{ 'list.createdBy' | trans }}</th>
+            <th>{{ 'list.trackers' | trans }}</th>
+            <th>{{ 'list.actions' | trans }}</th>
+        </tr>
+    </thead>
+{% endblock %}
+
+{% block tableBody %}
+    <tbody>
+        {% for object in collection %}
+        <tr>
+            <td>{{ object.id }}</td>
+            <td>{{ object.title }}</td>
+            <td>{{ object.category is not null ? object.category.title : '-' }}</td>
+            <td>{{ yesNo(object.isPublic) }}</td>
+            <td>{{ object.createdAt | date('d F Y') }}</td>
+            <td>{{ object.updatedAt | date('d F Y') }}</td>
+            <td>{{ object.createdBy.name }}</td>
+            <td>
+                {% if object.trackers is defined and object.trackers | length > 0 %}
+                    <ul>
+                    {% for tracker in object.trackers %}
+                        <li>{{ tracker.title }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('issues_list', {'identifier': object.identifier}) }}" class="btn btn-info btn-xs">
+                    <i class="fa fa-list"></i>
+                    {{ 'buttons.issues' | trans }}
+                </a>
+                <a href="{{ path('projects_edit', { 'id': object.id }) }}" class="btn btn-warning btn-xs">
+                    <i class="fa fa-pencil"></i>
+                    {{ 'buttons.edit' | trans }}
+                </a>
+                <a href="{{ path('projects_delete', { 'id': object.id }) }}" class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash-o"></i>
+                    {{ 'buttons.delete' | trans }}
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr class="danger">
+            <td colspan="9" class="text-center">{{ 'warnings.noResults' | trans }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block tableFooter %}
+    {{ widget('pagination', { 'paginator': collection }) }}
+{% endblock %}

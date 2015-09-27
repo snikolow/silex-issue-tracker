@@ -1,4 +1,8 @@
 /** Override **/
+body {
+    font: normal 12px "Courier New"
+}
+
 .right-side > .content-header > .breadcrumb {
     background: transparent;
     margin-top: 0px;

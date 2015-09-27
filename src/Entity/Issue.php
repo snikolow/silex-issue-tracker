@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * @Entity(repositoryClass="App\Repository\IssueRepository")
+ * @Entity(repositoryClass="Tracker\Repository\IssueRepository")
  * @Table(name="issues")
  * @HasLifecycleCallbacks
  */
@@ -50,40 +50,40 @@ class Issue {
     public $doneRatio;
     
     /**
-     * @var \App\Entity\Project
-     * @ManyToOne(targetEntity="App\Entity\Project")
+     * @var \Tracker\Entity\Project
+     * @ManyToOne(targetEntity="Tracker\Entity\Project")
      * @JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     public $project;
     
     /**
-     * @var \App\Entity\Tracker
-     * @ManyToOne(targetEntity="App\Entity\Tracker")
+     * @var \Tracker\Entity\Tracker
+     * @ManyToOne(targetEntity="Tracker\Entity\Tracker")
      */
     public $tracker;
     
     /**
-     * @var \App\Entity\Priority
-     * @ManyToOne(targetEntity="App\Entity\Priority")
+     * @var \Tracker\Entity\Priority
+     * @ManyToOne(targetEntity="Tracker\Entity\Priority")
      */
     public $priority;
     
     /**
-     * @var \App\Entity\IssueStatus
-     * @ManyToOne(targetEntity="App\Entity\IssueStatus")
+     * @var \Tracker\Entity\IssueStatus
+     * @ManyToOne(targetEntity="Tracker\Entity\IssueStatus")
      */
     public $status;
     
     /**
-     * @var \App\Entity\User
-     * @ManyToOne(targetEntity="App\Entity\User")
+     * @var \Tracker\Entity\User
+     * @ManyToOne(targetEntity="Tracker\Entity\User")
      * @JoinColumn(name="assignedTo_id", referencedColumnName="id", nullable=true)
      */
     public $assignedTo;
     
     /**
-     * @var \App\Entity\User
-     * @ManyToOne(targetEntity="App\Entity\User")
+     * @var \Tracker\Entity\User
+     * @ManyToOne(targetEntity="Tracker\Entity\User")
      */
     public $createdBy;
     
@@ -158,7 +158,7 @@ class Issue {
 
     /**
      * 
-     * @return \App\Entity\Project
+     * @return \Tracker\Entity\Project
      */
     public function getProject() {
         return $this->project;
@@ -166,7 +166,7 @@ class Issue {
 
     /**
      * 
-     * @return \App\Entity\Tracker
+     * @return \Tracker\Entity\Tracker
      */
     public function getTracker() {
         return $this->tracker;
@@ -174,7 +174,7 @@ class Issue {
 
     /**
      * 
-     * @return \App\Entity\Priority
+     * @return \Tracker\Entity\Priority
      */
     public function getPriority() {
         return $this->priority;
@@ -182,7 +182,7 @@ class Issue {
 
     /**
      * 
-     * @return \App\Entity\IssueStatus
+     * @return \Tracker\Entity\IssueStatus
      */
     public function getStatus() {
         return $this->status;
@@ -190,7 +190,7 @@ class Issue {
 
     /**
      * 
-     * @return \App\Entity\User
+     * @return \Tracker\Entity\User
      */
     public function getAssignedTo() {
         return $this->assignedTo;
@@ -198,7 +198,7 @@ class Issue {
 
     /**
      * 
-     * @return \App\Entity\User
+     * @return \Tracker\Entity\User
      */
     public function getCreatedBy() {
         return $this->createdBy;
@@ -262,49 +262,49 @@ class Issue {
 
     /**
      * 
-     * @param \App\Entity\Project $project
+     * @param \Tracker\Entity\Project $project
      */
-    public function setProject(\App\Entity\Project $project) {
+    public function setProject(\Tracker\Entity\Project $project) {
         $this->project = $project;
     }
 
     /**
      * 
-     * @param \App\Entity\Tracker $tracker
+     * @param \Tracker\Entity\Tracker $tracker
      */
-    public function setTracker(\App\Entity\Tracker $tracker) {
+    public function setTracker(\Tracker\Entity\Tracker $tracker) {
         $this->tracker = $tracker;
     }
 
     /**
      * 
-     * @param \App\Entity\Priority $priority
+     * @param \Tracker\Entity\Priority $priority
      */
-    public function setPriority(\App\Entity\Priority $priority) {
+    public function setPriority(\Tracker\Entity\Priority $priority) {
         $this->priority = $priority;
     }
 
     /**
      * 
-     * @param \App\Entity\IssueStatus $status
+     * @param \Tracker\Entity\IssueStatus $status
      */
-    public function setStatus(\App\Entity\IssueStatus $status) {
+    public function setStatus(\Tracker\Entity\IssueStatus $status) {
         $this->status = $status;
     }
 
     /**
      * 
-     * @param \App\Entity\User $assignedTo
+     * @param \Tracker\Entity\User $assignedTo
      */
-    public function setAssignedTo(\App\Entity\User $assignedTo = null) {
+    public function setAssignedTo(\Tracker\Entity\User $assignedTo = null) {
         $this->assignedTo = $assignedTo;
     }
 
     /**
      * 
-     * @param \App\Entity\User $createdBy
+     * @param \Tracker\Entity\User $createdBy
      */
-    public function setCreatedBy(\App\Entity\User $createdBy) {
+    public function setCreatedBy(\Tracker\Entity\User $createdBy) {
         $this->createdBy = $createdBy;
     }
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace Tracker\Entity;
 
 /**
- * @Entity(repositoryClass="App\Repository\PermissionRepository")
+ * @Entity(repositoryClass="Tracker\Repository\PermissionRepository")
  * @Table(name="permissions")
  */
 class Permission {

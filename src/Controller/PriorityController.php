@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\Type\PriorityType;
-use App\Entity\Priority;
+use Tracker\Form\Type\PriorityType;
+use Tracker\Entity\Priority;
 
 class PriorityController extends BaseController {
 

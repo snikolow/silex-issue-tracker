@@ -1,0 +1,10 @@
+db:
+    host: localhost
+    user: root
+    password: ~
+    dbname: ~
+    charset: utf8
+
+app:
+    debug: false
+    locale: en

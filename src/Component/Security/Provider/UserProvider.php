@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Component\Security\Provider;
+namespace Tracker\Component\Security\Provider;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;

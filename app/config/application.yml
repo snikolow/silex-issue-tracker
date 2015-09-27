@@ -1,0 +1,104 @@
+widgets:
+    breadcrumbs:
+        class: Tracker\Widget\BreadcrumbWidget
+        calls:
+            setBreadcrumbService: @breadcrumbs
+    topNavigation:
+        class: Tracker\Widget\NavigationWidget
+    sideNavigation:
+        class: Tracker\Widget\SideNavigationWidget
+        calls:
+            setAuthorizationChecker: @security.authorization_checker
+            setRequest: @request_stack
+    flashes:
+        class: Tracker\Widget\FlashWidget
+    pagination:
+        class: Tracker\Widget\PaginationWidget
+        calls:
+            setRequest: @request_stack
+
+providers:
+    service_controller:
+        class: Silex\Provider\ServiceControllerServiceProvider
+    twig:
+        class: Silex\Provider\TwigServiceProvider
+        params:
+            twig.path:
+                - %ROOT_PATH%/app/views/theme
+                - %ROOT_PATH%/app/views/default
+            twig.options:
+                cache: %ROOT_PATH%/var/cache/twig
+                charset: utf8
+            twig.form.templates:
+                - form_div_layout.html.twig
+                - layouts/theme/bootstrap_theme.twig
+    url_generator:
+        class: Silex\Provider\UrlGeneratorServiceProvider
+    http_fragment:
+        class: Silex\Provider\HttpFragmentServiceProvider
+    translator:
+        class: Silex\Provider\TranslationServiceProvider
+        params:
+            locale: %app.locale%
+            locale_fallbacks:
+                - en
+    doctrine:
+        class: Silex\Provider\DoctrineServiceProvider
+        params:
+            db.options:
+                driver: pdo_mysql
+                host: %db.host%
+                user: %db.user%
+                password: %db.password%
+                dbname: %db.dbname%
+                charset: %db.charset%
+    doctrine_orm:
+        class: Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
+        params:
+            orm.proxies_dir: %ROOT_PATH%/var/cache/proxies
+            orm.em.options:
+                mappings:
+                    -
+                        type: annotation
+                        namespace: Tracker\Entity
+                        path: %ROOT_PATH%/src/Entity
+    security:
+        class: Silex\Provider\SecurityServiceProvider
+        params:
+            security.firewalls:
+                unsecured:
+                    pattern: ^/auth$
+                    anonymous: true
+                application:
+                    pattern: ^/
+                    form:
+                        login_path: /auth
+                        check_path: /auth_check
+                    logout:
+                        logout_path: /logout
+                    users:
+
+            security.role_hierarchy:
+                ROLE_DEVELOPER:
+                    - ROLE_ADMIN
+                    - ROLE_ALLOWED_TO_SWITCH
+                ROLE_ADMIN:
+                    - ROLE_USER
+    translator:
+        class: Silex\Provider\TranslationServiceProvider
+        params:
+            locale: en
+    session:
+        class: Silex\Provider\SessionServiceProvider
+    form:
+        class: Silex\Provider\FormServiceProvider
+    validator:
+        class: Silex\Provider\ValidatorServiceProvider
+    console:
+        class: Tracker\Provider\ConsoleProvider\ConsoleServiceProvider
+
+security_voters:
+    project:
+        class: Tracker\Component\Security\Voter\ProjectVoter
+    issue:
+        class: Tracker\Component\Security\Voter\IssueVoter

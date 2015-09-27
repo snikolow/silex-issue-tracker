@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\Type\TrackerType;
-use App\Entity\Tracker;
+use Tracker\Form\Type\TrackerType;
+use Tracker\Entity\Tracker;
 
 class TrackerController extends BaseController {
 

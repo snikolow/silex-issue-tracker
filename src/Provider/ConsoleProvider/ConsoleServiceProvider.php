@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Provider\ConsoleProvider;
+namespace Tracker\Provider\ConsoleProvider;
 
 use Silex\ServiceProviderInterface;
 use Silex\Application;
-use App\Provider\ConsoleProvider\Console\ConsoleApplication;
+use Tracker\Provider\ConsoleProvider\Console\ConsoleApplication;
 
 class ConsoleServiceProvider implements ServiceProviderInterface {
 
@@ -13,13 +13,13 @@ class ConsoleServiceProvider implements ServiceProviderInterface {
             $application = new ConsoleApplication(
                     $app
             );
-            
+
             return $application;
         });
     }
 
     public function boot(Application $app) {
-        
+
     }
 
 }

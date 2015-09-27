@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Tracker\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\Type\CategoryType;
-use App\Entity\Category;
+use Tracker\Form\Type\CategoryType;
+use Tracker\Entity\Category;
 
 class CategoryController extends BaseController {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace Tracker\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +15,7 @@ class IssueType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(
                 array(
-                    'data_class' => 'App\Entity\Issue',
+                    'data_class' => 'Tracker\Entity\Issue',
                     'editMode' => false,
                     'attr' => array(
                         'id' => 'issue-form'
@@ -28,8 +28,8 @@ class IssueType extends AbstractType {
         $builder->add('subject', 'text');
         $builder->add('assignedTo', 'entity',
                 array(
-                    'class' => 'App\Entity\User',
-                    'property' => 'name',
+                    'class' => 'Tracker\Entity\User',
+                    'choice_label' => 'name',
                     'label' => 'Assignee',
                     'empty_value' => 'None',
                     'required' => false,
@@ -38,23 +38,23 @@ class IssueType extends AbstractType {
         );
         $builder->add('tracker', 'entity',
                 array(
-                    'class' => 'App\Entity\Tracker',
-                    'property' => 'title',
+                    'class' => 'Tracker\Entity\Tracker',
+                    'choice_label' => 'title',
                     'label' => 'Tracker',
                     'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('status', 'entity',
                 array(
-                    'class' => 'App\Entity\IssueStatus',
-                    'property' => 'title',
+                    'class' => 'Tracker\Entity\IssueStatus',
+                    'choice_label' => 'title',
                     'attr' => array('data-role' => 'select2')
                 )
         );
         $builder->add('priority', 'entity',
                 array(
-                    'class' => 'App\Entity\Priority',
-                    'property' => 'title',
+                    'class' => 'Tracker\Entity\Priority',
+                    'choice_label' => 'title',
                     'label' => 'Priority',
                     'attr' => array('data-role' => 'select2')
                 )
