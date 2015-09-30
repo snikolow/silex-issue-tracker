@@ -189,7 +189,7 @@ class SeedCommand extends Command {
     private function addProject() {
         $entity = new Entity\Project();
 
-        $createdBy = $this->entityManager->getReference('App\Entity\User', 1);
+        $createdBy = $this->entityManager->getReference('Tracker\Entity\User', 1);
 
         $entity->setTitle('Hello world');
         $entity->setIsPublic(true);
@@ -203,13 +203,13 @@ class SeedCommand extends Command {
      * Create issues
      */
     private function addIssues() {
-        $createdBy = $this->entityManager->getReference('App\Entity\User', 1);
-        $project = $this->entityManager->getReference('App\Entity\Project', 1);
+        $createdBy = $this->entityManager->getReference('Tracker\Entity\User', 1);
+        $project = $this->entityManager->getReference('Tracker\Entity\Project', 1);
 
         foreach(range(1,3) as $number) {
-            $priority = $this->entityManager->getReference('App\Entity\Priority', $number);
-            $status = $this->entityManager->getReference('App\Entity\IssueStatus', $number);
-            $tracker = $this->entityManager->getReference('App\Entity\Tracker', $number);
+            $priority = $this->entityManager->getReference('Tracker\Entity\Priority', $number);
+            $status = $this->entityManager->getReference('Tracker\Entity\IssueStatus', $number);
+            $tracker = $this->entityManager->getReference('Tracker\Entity\Tracker', $number);
 
             $entity = new Entity\Issue();
             $entity->setCreatedBy($createdBy);
