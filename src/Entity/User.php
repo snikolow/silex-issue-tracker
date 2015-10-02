@@ -5,6 +5,7 @@ namespace Tracker\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @Entity(repositoryClass="Tracker\Repository\UserRepository")
@@ -228,5 +229,7 @@ class User implements UserInterface {
             new Assert\NotBlank(),
             new Assert\Length(array('min' => 6))
         ));
+        
+        $metadata->addConstraint(new UniqueEntity(array('fields' => 'email')));
     }
 }

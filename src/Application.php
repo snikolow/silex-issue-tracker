@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Tracker\Twig\Extension\TrackerExtension;
 use Tracker\Component\Security\Provider\UserProvider;
 use Tracker\Component\Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
 
 class Application extends BaseApplication {
 
@@ -159,27 +160,30 @@ class Application extends BaseApplication {
         /**
          * Configure routes
          */
-         $app['routes'] = $app->extend('routes', function(RouteCollection $collection) {
-             $locator = new FileLocator(ROOT_PATH . '/app/config');
-             $loader = new YamlFileLoader($locator);
-             $routes = $loader->load('routing.yml');
+        $app['routes'] = $app->extend('routes', function(RouteCollection $collection) {
+            $locator = new FileLocator(ROOT_PATH . '/app/config');
+            $loader = new YamlFileLoader($locator);
+            $routes = $loader->load('routing.yml');
 
-             $collection->addCollection($routes);
+            $collection->addCollection($routes);
 
-             return $collection;
-         });
+            return $collection;
+        });
 
-         // Register Twig Extensions
-         $this->loadTwigExtensions();
+        // Register Twig Extensions
+        $this->loadTwigExtensions();
 
-         // Register Form Types/Extensions
-         $this->loadFormExtensions();
+        // Register Form Types/Extensions
+        $this->loadFormExtensions();
 
-         // Register internal services
-         $this->registerInternalServices();
+        // Register internal services
+        $this->registerInternalServices();
 
-         // Register internal events
-         $this->registerEventListeners();
+        // Register internal events
+        $this->registerEventListeners();
+
+        // Register Unique Entity validator
+        $this->registerUniqueEntityValidator();
          
          // Register error handlers to display a friendly error message
          // when the project is not running in debug mode.
@@ -250,6 +254,25 @@ class Application extends BaseApplication {
 
         $beforeActionListener = new Event\Listener\BeforeActionListener();
         $dispatcher->addListener(KernelEvents::CONTROLLER, array($beforeActionListener, 'onKernelController'));
+    }
+    
+    private function registerUniqueEntityValidator() {
+        $app = $this;
+        
+        if( isset($this['validator']) &&  class_exists('Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntityValidator') ) {
+            $this['doctrine.orm.validator.unique_validator'] = $this->share(function ($app) {
+                return new UniqueEntityValidator($app['managerRegistry']);
+            });
+            
+            if( ! isset($this['validator.validator_service_ids']) ) {
+                $this['validator.validator_service_ids'] = array();
+            }
+            
+            $this['validator.validator_service_ids'] = array_merge(
+                $this['validator.validator_service_ids'],
+                array('doctrine.orm.validator.unique' => 'doctrine.orm.validator.unique_validator')
+            );
+        }
     }
     
     private function registerErrorHandlers() {
