@@ -47,9 +47,12 @@ class ProjectVoter extends AbstractVoter {
 
         switch ($attribute) {
             case self::VIEW:
-                if( $project->getMembers()->contains($user) ) {
-                    return true;
+                foreach($project->getMembers() as $item) {
+                    if( $item->getMember()->getId() === $user->getId() ) {
+                        return true;
+                    }
                 }
+                
                 break;
             case self::EDIT:
 

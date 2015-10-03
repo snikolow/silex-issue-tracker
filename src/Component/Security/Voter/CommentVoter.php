@@ -6,28 +6,27 @@ use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
 use Tracker\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class IssueVoter extends AbstractVoter {
+class CommentVoter extends AbstractVoter {
 
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    const DELETE = 'delete';
 
     protected function getSupportedAttributes() {
-        return array(self::VIEW, self::EDIT);
+        return array(self::DELETE);
     }
 
     protected function getSupportedClasses() {
-        return array('Tracker\Entity\Issue');
+        return array('Tracker\Entity\Comment');
     }
 
     /**
      *
      * @param string $attribute
-     * @param \Tracker\Entity\Issue $issue
+     * @param \Tracker\Entity\Comment $comment
      * @param \Tracker\Entity\User $user
      * @return boolean
      * @throws \LogicException
      */
-    protected function isGranted($attribute, $issue, $user = null) {
+    protected function isGranted($attribute, $comment, $user = null) {
         // make sure there is a user object (i.e. that the user is logged in)
         if( ! $user instanceof UserInterface ) {
             return false;
@@ -45,19 +44,11 @@ class IssueVoter extends AbstractVoter {
             return true;
         }
 
-        $project = $issue->getProject();
-
         switch ($attribute) {
-            case self::VIEW:
-                foreach($project->getMembers() as $item) {
-                    if( $item->getMember()->getId() === $user->getId() ) {
-                        return true;
-                    }
+            case self::DELETE:
+                if( $comment->getMember() === $user ) {
+                    return true;
                 }
-
-                break;
-            case self::EDIT:
-
                 break;
         }
 

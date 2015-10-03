@@ -93,6 +93,14 @@
                                 <div class="timeline-body">
                                     {{ comment.content | raw }}
                                 </div>
+                                {% if is_granted('delete', comment) %}
+                                <div class="timeline-footer">
+                                    <a href="{{ path('issues_comment_delete', { 'id': comment.id }) }}" class="btn btn-xs btn-danger" data-action="confirm-delete">
+                                        <i class="fa fa-trash"></i>
+                                        {{ 'buttons.delete_comment' | trans }}
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
                         </li>
                         {% endfor %}

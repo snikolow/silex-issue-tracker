@@ -16,3 +16,9 @@ issues_ajax_update:
     path: /issues/ajax/update
     defaults: { _controller: Tracker\Controller\IssueController::ajaxUpdateAction }
     methods: [POST]
+    
+issues_comment_delete:
+    path: /issues/delete-comment/{id}
+    defaults: { _controller: Tracker\Controller\IssueController::deleteCommentAction }
+    requirements:
+        id: \d+

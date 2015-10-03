@@ -102,3 +102,5 @@ security_voters:
         class: Tracker\Component\Security\Voter\ProjectVoter
     issue:
         class: Tracker\Component\Security\Voter\IssueVoter
+    comment:
+        class: Tracker\Component\Security\Voter\CommentVoter

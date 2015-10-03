@@ -178,5 +178,25 @@ class IssueController extends BaseController {
     public function deleteAction($id) {
 
     }
+    
+    /**
+     * Delete a comment
+     * 
+     * @param int $id
+     */
+    public function deleteCommentAction($id) {
+        /* @var $comment \Tracker\Entity\Comment */
+        if( ! $comment = $this->getManager()->find('Tracker\Entity\Comment', $id) ) {
+            $this->application->abort(404, 'Comment not found!');
+        }
+        
+        $issue = $comment->getIssue();
+        
+        $this->denyAccessUnlessGranted('delete', $comment);
+        
+        $this->removeAndFlush($comment);
+        
+        return $this->redirectToRoute('issues_edit', array('id' => $issue->getId()));
+    }
 
 }

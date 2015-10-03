@@ -25,7 +25,8 @@ class ProjectRepository extends EntityRepository {
         // that he is part of.
         if( ! $user->getIsAdmin() ) {
             $qb
-                    ->where(':user MEMBER OF p.members')
+                    ->leftJoin('p.members', 'pm')
+                    ->where('pm.member = :user')
                     ->setParameter('user', $user);
         }
 

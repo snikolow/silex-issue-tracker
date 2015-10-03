@@ -48,6 +48,7 @@ buttons:
     create: Add new
     edit: Edit
     delete: Delete
+    delete_comment: Delete comment
     issues: Issues
     update: Update
     remove: Remove
